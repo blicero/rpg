@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-13 19:23:30 krylon>
+# Time-stamp: <2025-03-13 20:52:31 krylon>
 #
 # /data/code/python/rpg/game.py
 # created on 12. 03. 2025
@@ -20,46 +20,61 @@ rpg.data
 import random
 from abc import ABC
 from dataclasses import dataclass
-from typing import Final, NamedTuple
+from enum import Enum, auto
 
 
-class Range(NamedTuple):
+@dataclass(slots=True)
+class Range:
     """Range defines a range of numbers."""
 
     lo: int
     hi: int
+
+    __match_args__ = ("lo", "hi")
 
     def random(self) -> int:
         """Return a random number from the Range (i.e. [lo; hi])"""
         return random.randint(self.lo, self.hi)
 
 
+class BattleOutcome(Enum):
+    """The result of a fight."""
+
+    Victory = auto()
+    Defeat = auto()
+    Neither = auto()
+
+
 @dataclass(slots=True, kw_only=True)
 class Entity(ABC):
     """Base class for Characters, monsters, and... possibly other living creatures."""
 
-    name: Final[str]
-    species: Final[str]
+    name: str
+    species: str
     hp_max: int
     hp: int
     xp: int
     inventory: set
+    attack: int
+    evade: int
+    armor: int
+    damage: Range
+    initiative: Range
 
 
 @dataclass(slots=True, kw_only=True)
 class Monster(Entity):
     """Monster is a non-player character."""
 
-    mon_id: Final[int]
+    mon_id: int
     hostile: bool
-    attack: Final[Range]
 
 
 @dataclass(slots=True, kw_only=True)
 class Character(Entity):
     """Character is an entity within the game, controlled by the player or by the game engine."""
 
-    char_id: Final[int]
+    char_id: int
     lvl: int
     attributes: dict[str, int]
     skills: dict[str, int]
@@ -69,24 +84,24 @@ class Character(Entity):
 class Item:
     """Item is an object the player can pick up and use."""
 
-    item_id: Final[int]
-    name: Final[str]
-    description: Final[str]
-    weight: Final[int]
+    item_id: int
+    name: str
+    description: str
+    weight: int
     properties: dict
-    portable: Final[bool]
+    portable: bool
 
 
 @dataclass(slots=True, kw_only=True)
 class Location:
     """Location is a place the player can visit."""
 
-    loc_id: Final[int]
-    name: Final[str]
-    description: Final[str]
+    loc_id: int
+    name: str
+    description: str
     items: dict[str, Item]
     links: list[int]
-    characters: list[Character]
+    characters: dict[str, Entity]
 
 
 @dataclass(slots=True, kw_only=True)
@@ -94,7 +109,7 @@ class World:
     """World is the totality of Locations the player can travel to."""
 
     locations: dict[int, Location]
-    start_loc: Final[int]
+    start_loc: int
 
 
 # Local Variables: #

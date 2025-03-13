@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-12 18:00:38 krylon>
+# Time-stamp: <2025-03-13 20:30:00 krylon>
 #
 # /data/code/python/rpg/__init__.py
 # created on 12. 03. 2025
@@ -11,7 +11,7 @@
 # LICENSE for details or find a copy online at
 # https://www.gnu.org/licenses/gpl-3.0
 
-"""
+r"""
 rpg.__init__
 
 (c) 2025 Benjamin Walkenhorst
