@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2025-03-13 21:30:26 krylon>
+# Time-stamp: <2025-03-14 00:25:25 krylon>
 #
 #+TAGS: internals(i) ui(u) bug(b) feature(f)
 #+TAGS: database(d) design(e), meditation(m)
@@ -16,17 +16,17 @@
   A disappointing attempt at a text-based role-playing game.
 ** Clocktable
    #+BEGIN: clocktable :scope file :maxlevel 255 :emphasize t
-   #+CAPTION: Clock summary at [2025-03-13 Do 21:30]
+   #+CAPTION: Clock summary at [2025-03-14 Fr 00:25]
    | Headline                        | Time   |        |      |      |
    |---------------------------------+--------+--------+------+------|
-   | *Total time*                    | *2:49* |        |      |      |
+   | *Total time*                    | *5:23* |        |      |      |
    |---------------------------------+--------+--------+------+------|
-   | *RPG [0/0]*                     | *2:49* |        |      |      |
-   | \_  /Components [0/0]/          |        | /2:49/ |      |      |
+   | *RPG [0/0]*                     | *5:23* |        |      |      |
+   | \_  /Components [0/0]/          |        | /5:23/ |      |      |
    | \_    Engine [0/1]              |        |        | 2:47 |      |
    | \_      Mechanics               |        |        |      | 2:37 |
-   | \_    UI [0/1]                  |        |        | 0:02 |      |
-   | \_      Create character, world |        |        |      | 0:02 |
+   | \_    UI [0/1]                  |        |        | 2:36 |      |
+   | \_      Create character, world |        |        |      | 2:36 |
    #+END:
 ** Features [0/0]
    :PROPERTIES:
@@ -67,6 +67,7 @@
     :END:
 **** TODO Create character, world
      :LOGBOOK:
+     CLOCK: [2025-03-13 Do 21:51]--[2025-03-14 Fr 00:25] =>  2:34
      CLOCK: [2025-03-13 Do 21:28]--[2025-03-13 Do 21:30] =>  0:02
      :END:
      In order to do some testing, I will need to create a player character and
