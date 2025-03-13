@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-13 21:21:25 krylon>
+# Time-stamp: <2025-03-14 00:12:08 krylon>
 #
 # /data/code/python/rpg/engine.py
 # created on 13. 03. 2025
@@ -42,14 +42,11 @@ class Engine:
     """Engine executes a game."""
 
     world: World
-    cur_loc: int
+    cur_loc: int = 0
     player: Character
 
-    def start(self, player: Character, world: World) -> None:
-        """Begin a new game."""
-        self.world = world
-        self.cur_loc = world.start_loc
-        self.player = player
+    def __post_init__(self) -> None:
+        self.cur_loc = self.world.start_loc
 
     def here(self) -> Location:
         """Return the current location."""

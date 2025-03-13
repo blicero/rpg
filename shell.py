@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-13 21:21:08 krylon>
+# Time-stamp: <2025-03-14 00:23:38 krylon>
 #
 # /data/code/python/rpg/shell.py
 # created on 13. 03. 2025
@@ -53,8 +53,6 @@ class Shell(cmd.Cmd):
         finally:
             atexit.register(readline.write_history_file, common.path.histfile())
 
-        self.engine.start(char, world)
-
     def do_attack(self, arg):
         """Attack another Entity."""
         if arg not in self.world.locations[self.engine.cur_loc].characters:
@@ -85,11 +83,23 @@ class Shell(cmd.Cmd):
 
     def do_look(self, arg):  # pylint: disable-msg=W0613
         """Take a look at your surroundings."""
-        print("You take a look around. However, there is nothing to see, yet.")
+        here = self.engine.here()
+        print(f"You are at {here.name}.\n{here.description}")
 
     def do_go(self, arg):  # pylint: disable-msg=W0613
         """Go to another place."""
-        print("You might be all dressed up, but you still have nowhere to go.")
+        here = self.engine.here()
+        loc = 0
+        for i in here.links:
+            place = self.world.locations[i]
+            if place.name == arg:
+                loc = i
+                break
+        if loc == 0:
+            print("Yeah, you're not going anywere.")
+        else:
+            self.engine.cur_loc = loc
+            print(f"Going to {self.engine.here().name}")
 
     def complete_go(self, text, line, begidx, endidx):  # pylint: disable-msg=W0613
         """Complete me."""
@@ -108,8 +118,6 @@ class Shell(cmd.Cmd):
         print("So long, and thanks for all the fish.")
         return True
 
-
-if __name__ == '__main__':
-    print("IMPLEMENT ME!")
-    # sh = Shell()
-    # sh.cmdloop()
+    def do_EOF(self, arg):
+        print("Bye bye")
+        return True

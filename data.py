@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-13 20:52:31 krylon>
+# Time-stamp: <2025-03-14 00:09:43 krylon>
 #
 # /data/code/python/rpg/game.py
 # created on 12. 03. 2025
@@ -19,7 +19,7 @@ rpg.data
 
 import random
 from abc import ABC
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum, auto
 
 
@@ -88,8 +88,11 @@ class Item:
     name: str
     description: str
     weight: int
-    properties: dict
-    portable: bool
+    properties: dict = field(default_factory=dict)
+    portable: bool = True
+
+    def __hash__(self):
+        return hash(self.item_id)
 
 
 @dataclass(slots=True, kw_only=True)
