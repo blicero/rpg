@@ -69,23 +69,23 @@ You are at {here.name}""")
             print(f"There is no {arg} here to fight.")
             return False
 
-        opp = self.world.locations[self.engine.cur_loc].characters[arg]
+        opp = self.engine.here().characters[arg]
         res = self.engine.fight_round(opp)
         match res:
             case BattleOutcome.Victory:
                 print(f"You have slain {arg}, gained {opp.xp} XP.")
+                del self.engine.here().characters[arg]
             case BattleOutcome.Defeat:
                 print("You are dead. Sorry.")
                 return True
             case BattleOutcome.Neither:
                 print("And round and round it goes...")
 
-    def complete_attack(self, text, line, begidx, endidx):  # pylint: disable-msg=W0613
+    def complete_attack(self, text, _line, _begidx, _endidx) -> list[str]:
         """Complete me."""
         here = self.engine.here()
-        if not text:
-            completions = here.characters.keys()
-        else:
+        completions: list[str] = list(here.characters.keys())
+        if text:
             completions = [x for x in here.characters.keys()
                            if x.lower().startswith(text.lower)
                            ]
