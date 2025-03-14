@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2025-03-14 13:43:45 krylon>
+# Time-stamp: <2025-03-14 15:25:15 krylon>
 #
 #+TAGS: internals(i) ui(u) bug(b) feature(f)
 #+TAGS: database(d) design(e), meditation(m)
@@ -8,7 +8,7 @@
 #+TODO: MEDITATE(m) PLANNING(p) | SUSPENDED(s)
 #+PRIORITIES: A G D
 
-* RPG [0/0]
+* RPG [0/2]
   :PROPERTIES:
   :COOKIE_DATA: todo recursive
   :VISIBILITY: children
@@ -16,16 +16,16 @@
   A disappointing attempt at a text-based role-playing game.
 ** Clocktable
    #+BEGIN: clocktable :scope file :maxlevel 255 :emphasize t
-   #+CAPTION: Clock summary at [2025-03-14 Fr 13:43]
+   #+CAPTION: Clock summary at [2025-03-14 Fr 15:25]
    | Headline                        | Time   |        |      |      |
    |---------------------------------+--------+--------+------+------|
-   | *Total time*                    | *6:36* |        |      |      |
+   | *Total time*                    | *7:10* |        |      |      |
    |---------------------------------+--------+--------+------+------|
-   | *RPG [0/0]*                     | *6:36* |        |      |      |
-   | \_  /Components [0/0]/          |        | /6:36/ |      |      |
+   | *RPG [0/2]*                     | *7:10* |        |      |      |
+   | \_  /Components [0/0]/          |        | /7:10/ |      |      |
    | \_    Engine [0/1]              |        |        | 4:00 |      |
    | \_      Mechanics               |        |        |      | 3:50 |
-   | \_    UI [0/1]                  |        |        | 2:36 |      |
+   | \_    UI [0/1]                  |        |        | 3:10 |      |
    | \_      Create character, world |        |        |      | 2:36 |
    #+END:
 ** Features [0/0]
@@ -66,6 +66,9 @@
     :PROPERTIES:
     :COOKIE_DATA: todo recursive
     :VISIBILITY: children
+    :END:
+    :LOGBOOK:
+    CLOCK: [2025-03-14 Fr 14:50]--[2025-03-14 Fr 15:24] =>  0:34
     :END:
 **** TODO Create character, world
      :LOGBOOK:
