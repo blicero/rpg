@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 15:52:53 krylon>
+# Time-stamp: <2025-03-14 17:51:48 krylon>
 #
 # /data/code/python/rpg/game.py
 # created on 12. 03. 2025
@@ -21,8 +21,15 @@ import random
 from abc import ABC
 from dataclasses import dataclass, field
 from enum import Enum, auto
+from functools import total_ordering
+from typing import Optional
+
+from krylib import Counter
+
+idcnt: Counter = Counter(1, 1)
 
 
+@total_ordering
 @dataclass(slots=True)
 class Range:
     """Range defines a range of numbers."""
@@ -31,6 +38,22 @@ class Range:
     hi: int
 
     __match_args__ = ("lo", "hi")
+
+    def __lt__(self, other):
+        match other:
+            case Range(_, hi):
+                return self.hi < hi
+            case _:
+                raise TypeError(f"Cannot compare Range and {other.__class__}")
+
+    def __eq__(self, other):
+        match other:
+            case Range(lo, hi):
+                return self.lo == lo and self.hi == hi
+            case _ if isinstance(other, range):
+                return self.lo == other.start and self.hi == other.stop
+            case _:
+                return False
 
     def __contains__(self, x) -> bool:
         match x:
@@ -60,7 +83,7 @@ class BattleOutcome(Enum):
 class Item:
     """Item is an object the player can pick up and use."""
 
-    item_id: int
+    item_id: int = field(default_factory=idcnt.count)
     name: str
     description: str
     weight: int
@@ -88,12 +111,25 @@ class Entity(ABC):
     damage: Range
     initiative: Range
 
+    def dmg(self) -> Range:
+        """Return the effective damage the Entity can cause, taking into account any weapons."""
+        base: Range = self.damage
+        weapon: Optional[Item] = None
+        for i in self.inventory.values():
+            if "damage" in i.properties:
+                if weapon is None or weapon.properties["damage"] < i.properties["damage"]:
+                    weapon = i
+
+        if weapon is not None:
+            return base + weapon.properties["damage"]
+        return base
+
 
 @dataclass(slots=True, kw_only=True)
 class Monster(Entity):
     """Monster is a non-player character."""
 
-    mon_id: int
+    mon_id: int = field(default_factory=idcnt.count)
     hostile: bool
 
 
@@ -101,7 +137,7 @@ class Monster(Entity):
 class Character(Entity):
     """Character is an entity within the game, controlled by the player or by the game engine."""
 
-    char_id: int
+    char_id: int = field(default_factory=idcnt.count)
     lvl: int
     attributes: dict[str, int]
     skills: dict[str, int]
@@ -111,7 +147,7 @@ class Character(Entity):
 class Location:
     """Location is a place the player can visit."""
 
-    loc_id: int
+    loc_id: int = field(default_factory=idcnt.count)
     name: str
     description: str
     items: dict[str, Item]

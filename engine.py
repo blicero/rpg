@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 10:45:44 krylon>
+# Time-stamp: <2025-03-14 17:43:01 krylon>
 #
 # /data/code/python/rpg/engine.py
 # created on 13. 03. 2025
@@ -75,7 +75,7 @@ class Engine:
                 self.log.debug("You hit (Attack %d vs Defense %d)!",
                                attack,
                                defend)
-                dmg = roll(self.player.damage)
+                dmg = roll(self.player.dmg())
                 dmg -= opponent.armor
                 if dmg > 0:
                     opponent.hp -= dmg
@@ -99,7 +99,7 @@ class Engine:
                                opponent.name,
                                attack,
                                defend)
-                dmg = roll(opponent.damage)
+                dmg = roll(opponent.dmg())
                 dmg -= self.player.armor
                 if dmg > 0:
                     self.player.hp -= dmg
