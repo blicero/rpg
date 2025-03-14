@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 17:51:48 krylon>
+# Time-stamp: <2025-03-14 18:09:26 krylon>
 #
 # /data/code/python/rpg/game.py
 # created on 12. 03. 2025
@@ -114,15 +114,20 @@ class Entity(ABC):
     def dmg(self) -> Range:
         """Return the effective damage the Entity can cause, taking into account any weapons."""
         base: Range = self.damage
+        weapon = self.weapon()
+
+        if weapon is not None:
+            return base + weapon.properties["damage"]
+        return base
+
+    def weapon(self) -> Optional[Item]:
+        """Return the creature's most formidable weapon, if it has any."""
         weapon: Optional[Item] = None
         for i in self.inventory.values():
             if "damage" in i.properties:
                 if weapon is None or weapon.properties["damage"] < i.properties["damage"]:
                     weapon = i
-
-        if weapon is not None:
-            return base + weapon.properties["damage"]
-        return base
+        return weapon
 
 
 @dataclass(slots=True, kw_only=True)
