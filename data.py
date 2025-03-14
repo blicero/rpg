@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 00:09:43 krylon>
+# Time-stamp: <2025-03-14 15:21:07 krylon>
 #
 # /data/code/python/rpg/game.py
 # created on 12. 03. 2025
@@ -46,6 +46,22 @@ class BattleOutcome(Enum):
 
 
 @dataclass(slots=True, kw_only=True)
+class Item:
+    """Item is an object the player can pick up and use."""
+
+    item_id: int
+    name: str
+    description: str
+    weight: int
+    properties: dict = field(default_factory=dict)
+    portable: bool = True
+    charges: int = 1
+
+    def __hash__(self):
+        return hash(self.item_id)
+
+
+@dataclass(slots=True, kw_only=True)
 class Entity(ABC):
     """Base class for Characters, monsters, and... possibly other living creatures."""
 
@@ -54,7 +70,7 @@ class Entity(ABC):
     hp_max: int
     hp: int
     xp: int
-    inventory: set
+    inventory: dict[str, Item]
     attack: int
     evade: int
     armor: int
@@ -78,21 +94,6 @@ class Character(Entity):
     lvl: int
     attributes: dict[str, int]
     skills: dict[str, int]
-
-
-@dataclass(slots=True, kw_only=True)
-class Item:
-    """Item is an object the player can pick up and use."""
-
-    item_id: int
-    name: str
-    description: str
-    weight: int
-    properties: dict = field(default_factory=dict)
-    portable: bool = True
-
-    def __hash__(self):
-        return hash(self.item_id)
 
 
 @dataclass(slots=True, kw_only=True)
