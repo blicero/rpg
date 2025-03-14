@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 12:56:35 krylon>
+# Time-stamp: <2025-03-14 13:36:05 krylon>
 #
 # /data/code/python/rpg/demo.py
 # created on 13. 03. 2025
@@ -19,6 +19,7 @@ rpg.demo
 
 
 import sys
+from typing import Optional
 
 from krylib import Counter
 
@@ -122,7 +123,7 @@ def create_character() -> Character:
     return p
 
 
-def play() -> None:
+def play(load: Optional[str] = None) -> None:
     """Play a game."""
     w = create_world()
     c = create_character()
