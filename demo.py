@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 13:36:05 krylon>
+# Time-stamp: <2025-03-14 15:21:55 krylon>
 #
 # /data/code/python/rpg/demo.py
 # created on 13. 03. 2025
@@ -98,7 +98,7 @@ def create_character() -> Character:
         hp=100,
         xp=0,
         lvl=1,
-        inventory=set(),
+        inventory={},
         attack=12,
         evade=8,
         armor=2,

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 13:34:50 krylon>
+# Time-stamp: <2025-03-14 15:22:35 krylon>
 #
 # /data/code/python/rpg/shell.py
 # created on 13. 03. 2025
@@ -134,6 +134,25 @@ You are at {here.name}""")
             completions = [x for x in destinations if x.lower().startswith(text.lower())]
         return completions
 
+    def do_take(self, arg) -> bool:
+        """Take an Item."""
+        here = self.engine.here()
+        if arg not in here.items:
+            print(f"There is no {arg} here.")
+        else:
+            item = here.items[arg]
+            del here.items[arg]
+            self.engine.player.inventory[item.name] = item
+        return False
+
+    def complete_take(self, text, _line, _beg, _end) -> list[str]:
+        """Suggest Items to take."""
+        here = self.engine.here()
+        items = sorted(here.items.keys())
+        if text:
+            items = [x for x in items if x.lower().startswith(text.lower())]
+        return items
+
     def do_me(self, _):
         """Display the Player's vital stats and inventory."""
         player = self.engine.player
@@ -144,8 +163,8 @@ Attack: {player.attack} / Evade: {player.evade}
 Armor: {player.armor} / Damage: {player.damage}
 Initiative: {player.initiative}
 Inventory:""")
-        for i in sorted(player.inventory):
-            print(f"\t{i.name}")
+        for i in sorted(player.inventory.keys()):
+            print(f"\t{i}")
 
     def do_quit(self, _) -> bool:
         """Exit the game."""
