@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2025-03-14 00:25:25 krylon>
+# Time-stamp: <2025-03-14 13:43:45 krylon>
 #
 #+TAGS: internals(i) ui(u) bug(b) feature(f)
 #+TAGS: database(d) design(e), meditation(m)
@@ -16,15 +16,15 @@
   A disappointing attempt at a text-based role-playing game.
 ** Clocktable
    #+BEGIN: clocktable :scope file :maxlevel 255 :emphasize t
-   #+CAPTION: Clock summary at [2025-03-14 Fr 00:25]
+   #+CAPTION: Clock summary at [2025-03-14 Fr 13:43]
    | Headline                        | Time   |        |      |      |
    |---------------------------------+--------+--------+------+------|
-   | *Total time*                    | *5:23* |        |      |      |
+   | *Total time*                    | *6:36* |        |      |      |
    |---------------------------------+--------+--------+------+------|
-   | *RPG [0/0]*                     | *5:23* |        |      |      |
-   | \_  /Components [0/0]/          |        | /5:23/ |      |      |
-   | \_    Engine [0/1]              |        |        | 2:47 |      |
-   | \_      Mechanics               |        |        |      | 2:37 |
+   | *RPG [0/0]*                     | *6:36* |        |      |      |
+   | \_  /Components [0/0]/          |        | /6:36/ |      |      |
+   | \_    Engine [0/1]              |        |        | 4:00 |      |
+   | \_      Mechanics               |        |        |      | 3:50 |
    | \_    UI [0/1]                  |        |        | 2:36 |      |
    | \_      Create character, world |        |        |      | 2:36 |
    #+END:
@@ -53,6 +53,8 @@
      I find that to be inconvenient, I will reconsider.
 **** TODO Mechanics
      :LOGBOOK:
+     CLOCK: [2025-03-14 Fr 13:05]--[2025-03-14 Fr 13:43] =>  0:38
+     CLOCK: [2025-03-14 Fr 12:25]--[2025-03-14 Fr 13:00] =>  0:35
      CLOCK: [2025-03-13 Do 19:53]--[2025-03-13 Do 21:28] =>  1:35
      CLOCK: [2025-03-13 Do 18:42]--[2025-03-13 Do 19:33] =>  0:51
      CLOCK: [2025-03-13 Do 18:31]--[2025-03-13 Do 18:42] =>  0:11
