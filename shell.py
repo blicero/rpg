@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 12:58:19 krylon>
+# Time-stamp: <2025-03-14 13:34:50 krylon>
 #
 # /data/code/python/rpg/shell.py
 # created on 13. 03. 2025
@@ -19,7 +19,10 @@ rpg.shell
 
 import atexit
 import cmd
+import os
+import pickle
 import readline
+import traceback
 
 from rpg import common
 from rpg.data import BattleOutcome, Character, World
@@ -144,12 +147,49 @@ Inventory:""")
         for i in sorted(player.inventory):
             print(f"\t{i.name}")
 
-    def do_quit(self, arg):  # pylint: disable-msg=W0613
+    def do_quit(self, _) -> bool:
         """Exit the game."""
         print("So long, and thanks for all the fish.")
         return True
 
-    def do_EOF(self, _):
+    def do_EOF(self, _) -> bool:
         """Handle EOF (by quitting)"""
         print("Bye bye")
         return True
+
+    def do_save(self, arg) -> bool:
+        """Save the current state of the game."""
+        full_path = os.path.join(common.path.save(), arg)
+        with open(full_path, "wb") as fh:
+            pickle.dump(self.engine, fh)
+        return False
+
+    def complete_save(self, text, _line, _begidx, _endidx) -> list[str]:
+        """Suggest possible completions for save files."""
+        completions: list[str] = os.listdir(common.path.save())
+        if text:
+            completions = [x for x in completions if x.lower().startswith(text.lower())]
+
+        return completions
+
+    def do_load(self, arg) -> bool:
+        """Attempt to load a saved game."""
+        full_path = os.path.join(common.path.save(), arg)
+        if not os.path.isfile(full_path):
+            print(f"{arg} does not exist!")
+        else:
+            with open(full_path, "rb") as fh:
+                try:
+                    eng = pickle.load(fh)
+                except Exception as err:  # pylint: disable-msg=W0718
+                    print(f"{err.__class__} while trying to load saved game {arg}: {traceback.format_exception(err)}")
+                else:
+                    self.engine = eng
+        return False
+
+    def complete_load(self, text, _line, _begidx, _endidx) -> list[str]:
+        """Suggest completions for loading a saved game."""
+        games: list[str] = os.listdir(common.path.save())
+        if text:
+            games = [x for x in games if x.lower().startswith(text.lower())]
+        return games
