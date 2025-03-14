@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 17:19:17 krylon>
+# Time-stamp: <2025-03-14 18:07:29 krylon>
 #
 # /data/code/python/rpg/shell.py
 # created on 13. 03. 2025
@@ -76,7 +76,7 @@ You are at {here.name}""")
         res = self.engine.fight_round(opp)
         match res:
             case BattleOutcome.Victory:
-                print(f"You have slain {arg}, gained {opp.xp} XP.")
+                print(f"You have defeated {arg}, gained {opp.xp} XP.")
                 del self.engine.here().characters[arg]
             case BattleOutcome.Defeat:
                 print("You are dead. Sorry.")

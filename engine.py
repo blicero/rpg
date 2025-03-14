@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 17:43:01 krylon>
+# Time-stamp: <2025-03-14 18:09:31 krylon>
 #
 # /data/code/python/rpg/engine.py
 # created on 13. 03. 2025
@@ -67,7 +67,6 @@ class Engine:
             ini_opp = roll(opponent.initiative)
 
         if ini_pl > ini_opp:
-            self.log.debug("You attack!")
             attack = roll(self.player.attack)
             defend = roll(opponent.evade)
 
