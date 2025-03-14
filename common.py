@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-12 17:59:25 krylon>
+# Time-stamp: <2025-03-14 13:24:31 krylon>
 #
 # /data/code/python/krylisp/common.py
 # created on 17. 05. 2024
@@ -69,6 +69,10 @@ class Path:
             self.__base = folder
         return self.__base
 
+    def save(self) -> str:
+        """Return the path to the folder for saved games."""
+        return os.path.join(self.__base, "save")
+
     def db(self) -> str:  # pylint: disable-msg=C0103
         """Return the path to the database"""
         return os.path.join(self.__base, f"{APP_NAME.lower()}.db")
@@ -104,6 +108,9 @@ def init_app() -> None:
     if not os.path.isdir(path.base()):
         print(f"Create base directory {path.base()}")
         os.mkdir(path.base())
+    if not os.path.isdir(path.save()):
+        print(f"Create save directory {path.save()}")
+        os.mkdir(path.save())
 
 
 def get_logger(name: str, terminal: bool = True) -> logging.Logger:
