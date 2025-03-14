@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 15:21:55 krylon>
+# Time-stamp: <2025-03-14 15:39:38 krylon>
 #
 # /data/code/python/rpg/demo.py
 # created on 13. 03. 2025
@@ -51,6 +51,7 @@ occasionally a fish leaps out of the water.
                                  description="A sharp axe. Can be used to cut down trees and enemies.",
                                  weight=5,
                                  properties={"damage": Range(5, 10)},
+                                 charges=-1,
                                  ),
                  },
                  characters={},
@@ -66,11 +67,11 @@ Orcs live here.""",
                                             hp_max=80,
                                             hp=80,
                                             xp=100,
-                                            inventory={Item(item_id=100,
-                                                            name="Gold",
-                                                            description="""Sweet, sweet gold.""",
-                                                            weight=1,
-                                                            portable=True)},
+                                            inventory={"Gold": Item(item_id=100,
+                                                                    name="Gold",
+                                                                    description="""Sweet, sweet gold.""",
+                                                                    weight=1,
+                                                                    portable=True)},
                                             attack=10,
                                             evade=2,
                                             armor=1,
@@ -125,6 +126,8 @@ def create_character() -> Character:
 
 def play(load: Optional[str] = None) -> None:
     """Play a game."""
+    if load:
+        print("Starting from saved games is not implemented, yet.")
     w = create_world()
     c = create_character()
     sh = Shell(w, c)
@@ -133,7 +136,10 @@ def play(load: Optional[str] = None) -> None:
 
 if __name__ == '__main__':
     try:
-        play()
+        saved_game: Optional[str] = None
+        if sys.argv[0]:
+            saved_game = sys.argv[0]
+        play(saved_game)
     except KeyboardInterrupt:
         print("\nBye bye.")
         sys.exit(0)
