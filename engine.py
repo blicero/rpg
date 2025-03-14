@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 00:12:08 krylon>
+# Time-stamp: <2025-03-14 10:45:44 krylon>
 #
 # /data/code/python/rpg/engine.py
 # created on 13. 03. 2025
@@ -18,10 +18,12 @@ rpg.engine
 """
 
 
+import logging
 import random
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Final, Union
 
+from rpg import common
 from rpg.data import BattleOutcome, Character, Location, Monster, Range, World
 
 
@@ -44,6 +46,7 @@ class Engine:
     world: World
     cur_loc: int = 0
     player: Character
+    log: logging.Logger = field(repr=False, default_factory=lambda: common.get_logger("engine"))
 
     def __post_init__(self) -> None:
         self.cur_loc = self.world.start_loc
@@ -57,33 +60,61 @@ class Engine:
         ini_pl: int = 0
         ini_opp: int = 0
 
+        self.log.debug("Fight! Fight! Fight! Me against %s", opponent.name)
+
         while ini_pl == ini_opp:
             ini_pl = roll(self.player.initiative)
             ini_opp = roll(opponent.initiative)
 
         if ini_pl > ini_opp:
+            self.log.debug("You attack!")
             attack = roll(self.player.attack)
             defend = roll(opponent.evade)
 
             if attack > defend:
+                self.log.debug("You hit (Attack %d vs Defense %d)!",
+                               attack,
+                               defend)
                 dmg = roll(self.player.damage)
                 dmg -= opponent.armor
-                opponent.hp -= dmg
+                if dmg > 0:
+                    opponent.hp -= dmg
+                self.log.debug("You cause %d damage", max(dmg, 0))
                 if opponent.hp <= 0:
                     # The monster has been slain.
+                    self.log.debug("You kill %s", opponent.name)
                     self.player.xp += opponent.xp
                     return BattleOutcome.Victory
+            else:
+                self.log.debug("You miss (Attack %d vs Defense %d)",
+                               attack,
+                               defend)
         else:
+            self.log.debug("%s attacks", opponent.name)
             attack = roll(opponent.attack)
             defend = roll(self.player.evade)
 
             if attack > defend:
+                self.log.debug("%s hits (Attack %d vs Defense %d)",
+                               opponent.name,
+                               attack,
+                               defend)
                 dmg = roll(opponent.damage)
                 dmg -= self.player.armor
-                self.player.hp -= dmg
+                if dmg > 0:
+                    self.player.hp -= dmg
+                self.log.debug("%s causes %d damage",
+                               opponent.name,
+                               max(dmg, 0))
                 if self.player.hp <= 0:
+                    self.log.debug("You die. *sad emoji*")
                     # The player has died.
                     return BattleOutcome.Defeat
+            else:
+                self.log.debug("%s misses (Attack %d vs Defense %d)",
+                               opponent.name,
+                               attack,
+                               defend)
 
         return BattleOutcome.Neither
 

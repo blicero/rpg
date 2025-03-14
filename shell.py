@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 00:23:38 krylon>
+# Time-stamp: <2025-03-14 10:53:49 krylon>
 #
 # /data/code/python/rpg/shell.py
 # created on 13. 03. 2025
@@ -85,6 +85,14 @@ class Shell(cmd.Cmd):
         """Take a look at your surroundings."""
         here = self.engine.here()
         print(f"You are at {here.name}.\n{here.description}")
+        if len(here.items) > 0:
+            print("You see the following Items:")
+            for i in sorted(here.items.keys()):
+                print(f"\t{i}")
+        if len(here.characters) > 0:
+            print("You see the following people and/or monsters:")
+            for c in sorted(here.characters.keys()):
+                print(f"\t{c}")
 
     def do_go(self, arg):  # pylint: disable-msg=W0613
         """Go to another place."""
@@ -113,11 +121,25 @@ class Shell(cmd.Cmd):
             completions = [x.name for x in destinations if x.name.startswith(text)]
         return completions
 
+    def do_me(self, _):
+        """Display the Player's vital stats and inventory."""
+        player = self.engine.player
+        print(f"""Name: {player.name}
+HP: {player.hp}/{player.hp_max}
+XP: {player.xp}
+Attack: {player.attack} / Evade: {player.evade}
+Armor: {player.armor} / Damage: {player.damage}
+Initiative: {player.initiative}
+Inventory:""")
+        for i in sorted(player.inventory):
+            print(f"\t{i.name}")
+
     def do_quit(self, arg):  # pylint: disable-msg=W0613
         """Exit the game."""
         print("So long, and thanks for all the fish.")
         return True
 
-    def do_EOF(self, arg):
+    def do_EOF(self, _):
+        """Handle EOF (by quitting)"""
         print("Bye bye")
         return True

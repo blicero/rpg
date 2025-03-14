@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 00:10:18 krylon>
+# Time-stamp: <2025-03-14 01:55:24 krylon>
 #
 # /data/code/python/rpg/demo.py
 # created on 13. 03. 2025
@@ -100,7 +100,7 @@ def create_character() -> Character:
         evade=8,
         armor=2,
         damage=Range(2, 8),
-        initiative=Range(1, 8),
+        initiative=Range(4, 12),
         char_id=666,
         attributes={
             "strength": 5,
