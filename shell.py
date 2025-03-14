@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 10:53:49 krylon>
+# Time-stamp: <2025-03-14 12:58:19 krylon>
 #
 # /data/code/python/rpg/shell.py
 # created on 13. 03. 2025
@@ -53,6 +53,16 @@ class Shell(cmd.Cmd):
         finally:
             atexit.register(readline.write_history_file, common.path.histfile())
 
+    def postcmd(self, stop, line) -> bool:
+        """Display the player's status and location."""
+        if not stop:
+            player = self.engine.player
+            here = self.engine.here()
+            print(f"""HP: {player.hp}/{player.hp_max}
+XP: {player.xp}
+You are at {here.name}""")
+        return stop
+
     def do_attack(self, arg):
         """Attack another Entity."""
         if arg not in self.world.locations[self.engine.cur_loc].characters:
@@ -77,7 +87,7 @@ class Shell(cmd.Cmd):
             completions = here.characters.keys()
         else:
             completions = [x for x in here.characters.keys()
-                           if x.startswith(text)
+                           if x.lower().startswith(text.lower)
                            ]
         return completions
 
@@ -118,7 +128,7 @@ class Shell(cmd.Cmd):
             completions = [x.name for x in destinations]
         else:
             destinations = [self.world.locations[x].name for x in here.links]
-            completions = [x.name for x in destinations if x.name.startswith(text)]
+            completions = [x for x in destinations if x.lower().startswith(text.lower())]
         return completions
 
     def do_me(self, _):

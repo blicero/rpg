@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 01:55:24 krylon>
+# Time-stamp: <2025-03-14 12:56:35 krylon>
 #
 # /data/code/python/rpg/demo.py
 # created on 13. 03. 2025
@@ -17,6 +17,8 @@ rpg.demo
 (c) 2025 Benjamin Walkenhorst
 """
 
+
+import sys
 
 from krylib import Counter
 
@@ -71,8 +73,8 @@ Orcs live here.""",
                                             attack=10,
                                             evade=2,
                                             armor=1,
-                                            damage=Range(1, 4),
-                                            initiative=Range(4, 10),
+                                            damage=Range(1, 10),
+                                            initiative=Range(1, 10),
                                             mon_id=5,
                                             hostile=True,
                                             )},
@@ -99,8 +101,8 @@ def create_character() -> Character:
         attack=12,
         evade=8,
         armor=2,
-        damage=Range(2, 8),
-        initiative=Range(4, 12),
+        damage=Range(2, 12),
+        initiative=Range(2, 12),
         char_id=666,
         attributes={
             "strength": 5,
@@ -129,7 +131,11 @@ def play() -> None:
 
 
 if __name__ == '__main__':
-    play()
+    try:
+        play()
+    except KeyboardInterrupt:
+        print("\nBye bye.")
+        sys.exit(0)
 
 # Local Variables: #
 # python-indent: 4 #
