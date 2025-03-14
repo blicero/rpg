@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 15:22:35 krylon>
+# Time-stamp: <2025-03-14 17:19:17 krylon>
 #
 # /data/code/python/rpg/shell.py
 # created on 13. 03. 2025
@@ -139,6 +139,8 @@ You are at {here.name}""")
         here = self.engine.here()
         if arg not in here.items:
             print(f"There is no {arg} here.")
+        elif not here.items[arg].portable:
+            print(f"{arg} is not portable.")
         else:
             item = here.items[arg]
             del here.items[arg]
@@ -148,7 +150,8 @@ You are at {here.name}""")
     def complete_take(self, text, _line, _beg, _end) -> list[str]:
         """Suggest Items to take."""
         here = self.engine.here()
-        items = sorted(here.items.keys())
+        items = sorted([k.name for k in here.items.values() if k.portable])
+
         if text:
             items = [x for x in items if x.lower().startswith(text.lower())]
         return items
