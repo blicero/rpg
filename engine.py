@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 18:09:31 krylon>
+# Time-stamp: <2025-03-14 18:57:09 krylon>
 #
 # /data/code/python/rpg/engine.py
 # created on 13. 03. 2025
@@ -24,7 +24,7 @@ from dataclasses import dataclass, field
 from typing import Final, Union
 
 from rpg import common
-from rpg.data import BattleOutcome, Character, Location, Monster, Range, World
+from rpg.data import BattleOutcome, Character, Entity, Location, Range, World
 
 
 def roll(rng: Union[Range, int]) -> int:
@@ -55,7 +55,7 @@ class Engine:
         """Return the current location."""
         return self.world.locations[self.cur_loc]
 
-    def fight_round(self, opponent: Monster) -> BattleOutcome:
+    def fight_round(self, opponent: Entity) -> BattleOutcome:
         """Fight an opponent for one round."""
         ini_pl: int = 0
         ini_opp: int = 0

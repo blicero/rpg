@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 18:07:29 krylon>
+# Time-stamp: <2025-03-14 18:59:33 krylon>
 #
 # /data/code/python/rpg/shell.py
 # created on 13. 03. 2025
@@ -21,12 +21,22 @@ import atexit
 import cmd
 import os
 import pickle
+import re
 import readline
 import traceback
+from re import Pattern
+from typing import Final
 
 from rpg import common
-from rpg.data import BattleOutcome, Character, World
+from rpg.data import BattleOutcome, Character, Monster, World
 from rpg.engine import Engine
+
+yes_no: Final[Pattern] = re.compile("(?:y(?:es)?|n(?:o)?)", re.I)
+
+
+def is_yes_no(x: str) -> bool:
+    """Return True if the argument can be used as an answer to a yes-or-no question."""
+    return bool(yes_no.match(x))
 
 
 class Shell(cmd.Cmd):
@@ -66,13 +76,26 @@ XP: {player.xp}
 You are at {here.name}""")
         return stop
 
-    def do_attack(self, arg):
+    def do_attack(self, arg: str) -> bool:
         """Attack another Entity."""
         if arg not in self.world.locations[self.engine.cur_loc].characters:
             print(f"There is no {arg} here to fight.")
             return False
 
         opp = self.engine.here().characters[arg]
+
+        if not isinstance(opp, Monster) or not opp.hostile:
+            question: str = f"{opp.name} is not your adversary. Do you really want to fight?"
+            answer: str = input(question)
+            # FIXME This should be more ... regularized.
+            #       I might need a separate Cmd subclass just for asking yes-no-questions.
+            #       Or, more generally, for offering a menu of choices?
+            #       But that is not what cmd is made for.
+            while not is_yes_no(answer):
+                answer = input(question)
+            if answer.lower().startswith("n"):
+                return False
+
         res = self.engine.fight_round(opp)
         match res:
             case BattleOutcome.Victory:
@@ -83,6 +106,8 @@ You are at {here.name}""")
                 return True
             case BattleOutcome.Neither:
                 print("And round and round it goes...")
+
+        return False
 
     def complete_attack(self, text, _line, _begidx, _endidx) -> list[str]:
         """Complete me."""
