@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 15:21:07 krylon>
+# Time-stamp: <2025-03-14 15:52:53 krylon>
 #
 # /data/code/python/rpg/game.py
 # created on 12. 03. 2025
@@ -31,6 +31,17 @@ class Range:
     hi: int
 
     __match_args__ = ("lo", "hi")
+
+    def __contains__(self, x) -> bool:
+        match x:
+            case int(n):
+                return self.lo <= n <= self.hi
+            case _:
+                raise TypeError(f"Argument must be an int, not a {x.__class__}")
+
+    def __add__(self, other: 'Range') -> 'Range':
+        """Add another Range."""
+        return Range(self.lo + other.lo, self.hi + other.hi)
 
     def random(self) -> int:
         """Return a random number from the Range (i.e. [lo; hi])"""
