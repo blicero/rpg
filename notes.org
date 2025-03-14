@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2025-03-14 15:25:15 krylon>
+# Time-stamp: <2025-03-14 18:11:01 krylon>
 #
 #+TAGS: internals(i) ui(u) bug(b) feature(f)
 #+TAGS: database(d) design(e), meditation(m)
@@ -16,14 +16,14 @@
   A disappointing attempt at a text-based role-playing game.
 ** Clocktable
    #+BEGIN: clocktable :scope file :maxlevel 255 :emphasize t
-   #+CAPTION: Clock summary at [2025-03-14 Fr 15:25]
+   #+CAPTION: Clock summary at [2025-03-14 Fr 18:10]
    | Headline                        | Time   |        |      |      |
    |---------------------------------+--------+--------+------+------|
-   | *Total time*                    | *7:10* |        |      |      |
+   | *Total time*                    | *8:45* |        |      |      |
    |---------------------------------+--------+--------+------+------|
-   | *RPG [0/2]*                     | *7:10* |        |      |      |
-   | \_  /Components [0/0]/          |        | /7:10/ |      |      |
-   | \_    Engine [0/1]              |        |        | 4:00 |      |
+   | *RPG [0/2]*                     | *8:45* |        |      |      |
+   | \_  /Components [0/0]/          |        | /8:45/ |      |      |
+   | \_    Engine [0/1]              |        |        | 5:35 |      |
    | \_      Mechanics               |        |        |      | 3:50 |
    | \_    UI [0/1]                  |        |        | 3:10 |      |
    | \_      Create character, world |        |        |      | 2:36 |
@@ -44,6 +44,7 @@
     :VISIBILITY: children
     :END:
     :LOGBOOK:
+    CLOCK: [2025-03-14 Fr 16:35]--[2025-03-14 Fr 18:10] =>  1:35
     CLOCK: [2025-03-13 Do 18:21]--[2025-03-13 Do 18:31] =>  0:10
     :END:
 **** Storage
