@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2025-03-14 18:11:01 krylon>
+# Time-stamp: <2025-03-14 18:18:56 krylon>
 #
 #+TAGS: internals(i) ui(u) bug(b) feature(f)
 #+TAGS: database(d) design(e), meditation(m)
@@ -52,7 +52,11 @@
      game.
      As I am feeling lazy, I think I'll use something like JSON or pickle. If
      I find that to be inconvenient, I will reconsider.
-**** TODO Mechanics
+**** TODO Mechanics [0/1]
+     :PROPERTIES:
+     :COOKIE_DATA: todo recursive
+     :VISIBILITY: children
+     :END:
      :LOGBOOK:
      CLOCK: [2025-03-14 Fr 13:05]--[2025-03-14 Fr 13:43] =>  0:38
      CLOCK: [2025-03-14 Fr 12:25]--[2025-03-14 Fr 13:00] =>  0:35
@@ -63,6 +67,17 @@
      This is going to be tricky. At least for me, because I have never done
      anything like this before. So there will be a lot of trial and error
      initially.
+***** TODO Fight the Power! [0/0]                                     :feature:
+      :PROPERTIES:
+      :COOKIE_DATA: todo recursive
+      :VISIBILITY: children
+      :END:
+      I want to make the fighting system less tedious.
+      - [ ] Allow player to flee (or attempt to)
+      - [ ] Monster might flee?
+      - [ ] When slain, monster drop items!
+      - [ ] More options, e.g. focus on defense vs attack?
+      - [ ] I might make a separate sub Shell for this?
 *** UI [0/1]
     :PROPERTIES:
     :COOKIE_DATA: todo recursive
