@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-15 17:19:04 krylon>
+# Time-stamp: <2025-03-15 19:35:34 krylon>
 #
 # /data/code/python/rpg/prompt.py
 # created on 15. 03. 2025
@@ -17,6 +17,8 @@ rpg.prompt
 (c) 2025 Benjamin Walkenhorst
 """
 
+import re
+from re import Pattern
 from typing import Final, Union
 
 from prompt_toolkit import print_formatted_text as printf
@@ -105,6 +107,19 @@ class ChoiceValidator(Validator):
             raise ValidationError(message="Cannot parse input to number") from verr
 
 
+predicate_pattern: Final[Pattern] = re.compile("^(y(?:es)?|no?)", re.I)
+
+
+class YesOrNoValidator(Validator):
+    """Validator to check if the player is responding to a yes-or-no-question correctly."""
+
+    def validate(self, document) -> None:
+        """Attempt to validate the player's input."""
+        txt = document.text.strip().lower()
+        if not predicate_pattern.match(txt):
+            raise ValidationError(message="Yeah, no.")
+
+
 class Question:
     """Question is a question with multiple allowed answers."""
 
@@ -151,9 +166,8 @@ class Question:
 # I think this could be done more elegantly and efficiently, but it should work.
 def yes_or_no(question: str) -> bool:
     """Ask the player a simple yes-or-no-question"""
-    q = Question(question, "Yes", "No")
-    res = q.ask()
-    return res == "Yes"
+    res = prompt(question, validator=YesOrNoValidator())
+    return res.lower()[0] == 'y'
 
 
 # Local Variables: #
