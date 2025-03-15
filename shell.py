@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 18:59:33 krylon>
+# Time-stamp: <2025-03-15 17:17:46 krylon>
 #
 # /data/code/python/rpg/shell.py
 # created on 13. 03. 2025
@@ -30,13 +30,9 @@ from typing import Final
 from rpg import common
 from rpg.data import BattleOutcome, Character, Monster, World
 from rpg.engine import Engine
+from rpg.prompt import yes_or_no
 
 yes_no: Final[Pattern] = re.compile("(?:y(?:es)?|n(?:o)?)", re.I)
-
-
-def is_yes_no(x: str) -> bool:
-    """Return True if the argument can be used as an answer to a yes-or-no question."""
-    return bool(yes_no.match(x))
 
 
 class Shell(cmd.Cmd):
@@ -85,15 +81,15 @@ You are at {here.name}""")
         opp = self.engine.here().characters[arg]
 
         if not isinstance(opp, Monster) or not opp.hostile:
-            question: str = f"{opp.name} is not your adversary. Do you really want to fight?"
-            answer: str = input(question)
-            # FIXME This should be more ... regularized.
-            #       I might need a separate Cmd subclass just for asking yes-no-questions.
-            #       Or, more generally, for offering a menu of choices?
-            #       But that is not what cmd is made for.
-            while not is_yes_no(answer):
-                answer = input(question)
-            if answer.lower().startswith("n"):
+            # FIXED This should work nicely now.
+            # question = Question(f"{opp.name} is not your adversary. Do you really want to fight?",
+            #                     "Yes",
+            #                     "No")
+            # answer: str = question.ask()
+            # if answer.lower().startswith("n"):
+            #     return False
+            response = yes_or_no(f"{opp.name} is not your adversary. Do you really want to fight?")
+            if not response:
                 return False
 
         res = self.engine.fight_round(opp)
