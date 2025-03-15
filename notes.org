@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2025-03-15 17:20:00 krylon>
+# Time-stamp: <2025-03-15 22:48:28 krylon>
 #
 #+TAGS: internals(i) ui(u) bug(b) feature(f)
 #+TAGS: design(e), meditation(m) plot(p)
@@ -8,7 +8,7 @@
 #+TODO: MEDITATE(m) PLANNING(p) | SUSPENDED(s)
 #+PRIORITIES: A G D
 
-* RPG [1/5]
+* RPG [1/6]
   :PROPERTIES:
   :COOKIE_DATA: todo recursive
   :VISIBILITY: children
@@ -16,30 +16,32 @@
   A disappointing attempt at a text-based role-playing game.
 ** Clocktable
    #+BEGIN: clocktable :scope file :maxlevel 255 :emphasize t
-   #+CAPTION: Clock summary at [2025-03-15 Sa 17:19]
-   | Headline                        | Time    |         |      |      |
-   |---------------------------------+---------+---------+------+------|
-   | *Total time*                    | *10:52* |         |      |      |
-   |---------------------------------+---------+---------+------+------|
-   | *RPG [1/5]*                     | *10:52* |         |      |      |
-   | \_  /Components [1/5]/          |         | /10:52/ |      |      |
-   | \_    Engine [0/3]              |         |         | 5:35 |      |
-   | \_      Mechanics [0/2]         |         |         |      | 3:50 |
-   | \_    UI [1/2]                  |         |         | 5:17 |      |
-   | \_      Prompt                  |         |         |      | 2:07 |
-   | \_      Create character, world |         |         |      | 2:36 |
+   #+CAPTION: Clock summary at [2025-03-15 Sa 22:48]
+   | Headline                        | Time    |         |      |      |      |      |
+   |---------------------------------+---------+---------+------+------+------+------|
+   | *Total time*                    | *12:14* |         |      |      |      |      |
+   |---------------------------------+---------+---------+------+------+------+------|
+   | *RPG [1/6]*                     | *12:14* |         |      |      |      |      |
+   | \_  /Components [1/6]/          |         | /12:14/ |      |      |      |      |
+   | \_    Engine [0/4]              |         |         | 6:57 |      |      |      |
+   | \_      Mechanics [0/3]         |         |         |      | 5:12 |      |      |
+   | \_        Talk to me! [0/1]     |         |         |      |      | 1:22 |      |
+   | \_          A state machine?    |         |         |      |      |      | 1:06 |
+   | \_    UI [1/2]                  |         |         | 5:17 |      |      |      |
+   | \_      Prompt                  |         |         |      | 2:07 |      |      |
+   | \_      Create character, world |         |         |      | 2:36 |      |      |
    #+END:
 ** Features [0/0]
    :PROPERTIES:
    :COOKIE_DATA: todo recursive
    :VISIBILITY: children
    :END:
-** Components [1/5]
+** Components [1/6]
    :PROPERTIES:
    :COOKIE_DATA: todo recursive
    :VISIBILITY: children
    :END:
-*** Engine [0/3]
+*** Engine [0/4]
     :PROPERTIES:
     :COOKIE_DATA: todo recursive
     :VISIBILITY: children
@@ -53,7 +55,7 @@
      game.
      As I am feeling lazy, I think I'll use something like JSON or pickle. If
      I find that to be inconvenient, I will reconsider.
-**** TODO Mechanics [0/2]
+**** TODO Mechanics [0/3]
      :PROPERTIES:
      :COOKIE_DATA: todo recursive
      :VISIBILITY: children
@@ -79,14 +81,29 @@
       - [ ] When slain, monster drop items!
       - [ ] More options, e.g. focus on defense vs attack?
       - [ ] I might make a separate sub Shell for this?
-***** TODO Talk to me! [0/0]
+***** TODO Talk to me! [0/1]
       :PROPERTIES:
       :COOKIE_DATA: todo recursive
       :VISIBILITY: children
       :END:
+      :LOGBOOK:
+      CLOCK: [2025-03-15 Sa 21:26]--[2025-03-15 Sa 21:42] =>  0:16
+      :END:
       Would be nice if one could talk to characters. I am thinking of a
       dialogue tree as in Shadowrun. But that's going to be a challenge.
       I found a library, [[file:///usr/share/doc/packages/python313-prompt_toolkit/README.rst][prompt_toolkit]], that seems like a great fit.
+      [2025-03-15 Sa 20:03] Yeah, the mechanics are great, now I need to think
+      about the data.
+****** TODO A state machine?
+       :LOGBOOK:
+       CLOCK: [2025-03-15 Sa 21:42]--[2025-03-15 Sa 22:48] =>  1:06
+       :END:
+       A very brief, superficial survey of the Interwebs tells me, a
+       statemachine might be the way to go.
+       The good news is that there are numerous libraries to aid in creating
+       state machines.
+       The bad news is that there are *numerous* libraries, so I have to take
+       a survey of what they offer.
 *** UI [1/2]
     :PROPERTIES:
     :COOKIE_DATA: todo recursive
@@ -132,3 +149,5 @@
     - collect entropy and infuse the RNG with it
     - steal an RNG from another kingdom or a dragon
     - create a new RNG that is even more random than the old one ever was.
+    - bail and watch the crystal palace crash from afar. Kind of dark, but
+      also outside the box.
