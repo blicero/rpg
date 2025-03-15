@@ -1,0 +1,17 @@
+// Time-stamp: <2025-03-15 22:44:06 krylon>
+
+digraph {
+        A [text=" \
+          Congratulations on landing this internship! We are all \
+          very excited!  However, the Great Festival Of The Bountiful \
+          Mother Nature is close, so we are all very busy right now. Too \
+          busy, in fact, to follow up on these reports of unusual \
+          events. \
+          If YOU could look into these and make sense of them, that would be a \
+          real help. Here is a broom, so you can get there a little faster. \
+          Good luck! "] -> subgraph {
+                B [ text="Sure." ]
+                C [ text="Yeah, no, I'll be chilling over here, studying these fungi..."]
+        }
+}
+
