@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2025-03-15 22:48:28 krylon>
+# Time-stamp: <2025-03-16 17:01:01 krylon>
 #
 #+TAGS: internals(i) ui(u) bug(b) feature(f)
 #+TAGS: design(e), meditation(m) plot(p)
@@ -16,17 +16,17 @@
   A disappointing attempt at a text-based role-playing game.
 ** Clocktable
    #+BEGIN: clocktable :scope file :maxlevel 255 :emphasize t
-   #+CAPTION: Clock summary at [2025-03-15 Sa 22:48]
+   #+CAPTION: Clock summary at [2025-03-16 So 17:00]
    | Headline                        | Time    |         |      |      |      |      |
    |---------------------------------+---------+---------+------+------+------+------|
-   | *Total time*                    | *12:14* |         |      |      |      |      |
+   | *Total time*                    | *15:10* |         |      |      |      |      |
    |---------------------------------+---------+---------+------+------+------+------|
-   | *RPG [1/6]*                     | *12:14* |         |      |      |      |      |
-   | \_  /Components [1/6]/          |         | /12:14/ |      |      |      |      |
-   | \_    Engine [0/4]              |         |         | 6:57 |      |      |      |
-   | \_      Mechanics [0/3]         |         |         |      | 5:12 |      |      |
-   | \_        Talk to me! [0/1]     |         |         |      |      | 1:22 |      |
-   | \_          A state machine?    |         |         |      |      |      | 1:06 |
+   | *RPG [1/6]*                     | *15:10* |         |      |      |      |      |
+   | \_  /Components [1/6]/          |         | /15:10/ |      |      |      |      |
+   | \_    Engine [0/4]              |         |         | 9:53 |      |      |      |
+   | \_      Mechanics [0/3]         |         |         |      | 8:08 |      |      |
+   | \_        Talk to me! [0/1]     |         |         |      |      | 4:18 |      |
+   | \_          A state machine?    |         |         |      |      |      | 4:02 |
    | \_    UI [1/2]                  |         |         | 5:17 |      |      |      |
    | \_      Prompt                  |         |         |      | 2:07 |      |      |
    | \_      Create character, world |         |         |      | 2:36 |      |      |
@@ -96,6 +96,9 @@
       about the data.
 ****** TODO A state machine?
        :LOGBOOK:
+       CLOCK: [2025-03-16 So 15:29]--[2025-03-16 So 17:00] =>  1:31
+       CLOCK: [2025-03-16 So 11:50]--[2025-03-16 So 12:43] =>  0:53
+       CLOCK: [2025-03-16 So 08:53]--[2025-03-16 So 09:25] =>  0:32
        CLOCK: [2025-03-15 Sa 21:42]--[2025-03-15 Sa 22:48] =>  1:06
        :END:
        A very brief, superficial survey of the Interwebs tells me, a
@@ -104,6 +107,17 @@
        state machines.
        The bad news is that there are *numerous* libraries, so I have to take
        a survey of what they offer.
+       [2025-03-16 So 08:53]
+       Something like that, anyway. I just had an idea, as I was waking up:
+       Dialogue consists of panels. Each panel is a bit of text, the NPC's
+       speech, and a menu of responses.
+       Each response has a link to the next panel, plus some logic to update
+       the world, the NPC's attitude, etc.
+       The latter part might be a bit tricky to represent.
+       Each choice needs (optionally, at least) a check if it is available,
+       and a bit of logic to update the world's state afterwards.
+       I think the world might need a set of global flags to mark if something
+       has happened, yet.
 *** UI [1/2]
     :PROPERTIES:
     :COOKIE_DATA: todo recursive
