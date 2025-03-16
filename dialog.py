@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-16 16:59:27 krylon>
+# Time-stamp: <2025-03-16 17:07:06 krylon>
 #
 # /data/code/python/rpg/dialog.py
 # created on 15. 03. 2025
@@ -137,12 +137,14 @@ class Choice:
     """Choice is one possible choice the player can make in a dialogue"""
 
     key: int
+    leads_to: int
     text: Union[str, HTML]
     conditions: set[int] = field(default_factory=set)
     consequences: set[int] = field(default_factory=set)
 
-    def __init__(self, k: int, t: str, cond: set[int], cons: set[int]) -> None:
+    def __init__(self, k: int, n: int, t: str, cond: set[int], cons: set[int]) -> None:
         self.key = k
+        self.leads_to = n
         self.text = t
         self.conditions = cond
         self.consequences = cons
