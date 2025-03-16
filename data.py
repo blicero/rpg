@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 18:09:26 krylon>
+# Time-stamp: <2025-03-16 15:35:46 krylon>
 #
 # /data/code/python/rpg/game.py
 # created on 12. 03. 2025
@@ -77,6 +77,42 @@ class BattleOutcome(Enum):
     Victory = auto()
     Defeat = auto()
     Neither = auto()
+
+
+class Attitude(Enum):
+    """Attitude expresses how an NPC perceives the player
+
+    The values speak for themselves, I hope.
+    "Champion" is the attitude that Athena has towards Odysseus in the Odysee. That is,
+    actively interested in the player's success.
+    """
+
+    Friendly = auto()
+    Hostile = auto()
+    Horny = auto()
+    Manipulative = auto()
+    Champion = auto()
+    Nemesis = auto()
+
+
+@dataclass(slots=True)
+class Flag:
+    """Flag is kind of like a flag to mark if a certain event has already happened."""
+
+    key: int
+    name: str
+    description: Optional[str]
+    __flag: bool = False
+
+    def __repr__(self) -> str:
+        return f"""Flag<{self.name} {"|" if self.__flag else "_"}>"""
+
+    def __bool__(self) -> bool:
+        return self.__flag
+
+    def mark_set(self) -> None:
+        """Raise the flag, so to speak."""
+        self.__flag = True
 
 
 @dataclass(slots=True, kw_only=True)
@@ -166,6 +202,7 @@ class World:
 
     locations: dict[int, Location]
     start_loc: int
+    state: dict[int, Flag] = field(default_factory=dict)
 
 
 # Local Variables: #
