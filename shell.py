@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-15 17:17:46 krylon>
+# Time-stamp: <2025-03-16 16:50:12 krylon>
 #
 # /data/code/python/rpg/shell.py
 # created on 13. 03. 2025
@@ -30,7 +30,7 @@ from typing import Final
 from rpg import common
 from rpg.data import BattleOutcome, Character, Monster, World
 from rpg.engine import Engine
-from rpg.prompt import yes_or_no
+from rpg.dialog import yes_or_no
 
 yes_no: Final[Pattern] = re.compile("(?:y(?:es)?|n(?:o)?)", re.I)
 
