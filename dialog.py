@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-16 16:44:46 krylon>
+# Time-stamp: <2025-03-16 16:59:27 krylon>
 #
 # /data/code/python/rpg/dialog.py
 # created on 15. 03. 2025
@@ -125,49 +125,6 @@ class YesOrNoValidator(Validator):
             raise ValidationError(message="Yeah, no.")
 
 
-class Question:
-    """Question is a question with multiple allowed answers."""
-
-    __slots__ = [
-        "question",
-        "answers",
-        "default",
-    ]
-
-    question: Final[Union[str, HTML]]
-    answers: Final[list[Union[str, HTML]]]
-    default: int
-
-    def __init__(self, question: Union[str, HTML], *answers: str, **kwargs) -> None:
-        self.question = question
-        self.answers = list(answers)
-        if "default" in kwargs:
-            if isinstance(kwargs["default"], int):
-                if 0 <= kwargs["default"] < len(answers):
-                    self.default = kwargs["default"]
-                else:
-                    raise IndexError("default answer must be a valid index into the list of answers")
-            else:
-                raise TypeError("default choice must an int")
-        else:
-            self.default = -1
-
-    def ask(self) -> str:
-        """Ask the question."""
-        # printf(self.question)
-        for i, a in enumerate(self.answers):
-            printf(f"{i+1:2d} {a}")
-        idx = int(prompt(self.question, validator=ChoiceValidator(len(self.answers))))
-
-        match self.answers[idx-1]:
-            case str(res):
-                return res
-            case res if isinstance(res, HTML):
-                return res.value
-            case _:
-                raise TypeError(f"Expected a str or HTML object, not {self.answers[idx].__class__}")
-
-
 # I think this could be done more elegantly and efficiently, but it should work.
 def yes_or_no(question: str) -> bool:
     """Ask the player a simple yes-or-no-question"""
@@ -180,7 +137,7 @@ class Choice:
     """Choice is one possible choice the player can make in a dialogue"""
 
     key: int
-    text: str
+    text: Union[str, HTML]
     conditions: set[int] = field(default_factory=set)
     consequences: set[int] = field(default_factory=set)
 
@@ -203,24 +160,27 @@ class Panel:
     """Panel is one node in the dialogue tree"""
 
     key: int
-    speech: str
+    speech: Union[str, HTML]
     choices: list[Choice]
 
-    def __init__(self, k: int, s: str, *responses: Choice) -> None:
+    def __init__(self, k: int, s: Union[str, HTML], *responses: Choice) -> None:
         self.key = k
         self.speech = s
         self.choices = list(responses)
 
-    def run(self, state: dict[int, Flag]) -> Choice:
-        """Display the Panel, ask the player, return the choice."""
+    def ask(self, state: dict[int, Flag]) -> Choice:
+        """Ask the question."""
         available = [c for c in self.choices if c.is_available(state)]
 
         if len(available) == 0:
             raise RuntimeError("No Choices are available.")
 
-        q: Question = Question(self.speech, *[a.text for a in available])
+        for i, a in enumerate(available):
+            printf(f"{i+1:2d} {a.text}")
 
-        response = q.ask()
+        idx = int(prompt(self.speech, validator=ChoiceValidator(len(available))))
+        return available[idx]
+
 
 # Local Variables: #
 # python-indent: 4 #
