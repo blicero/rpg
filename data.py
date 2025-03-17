@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-16 15:35:46 krylon>
+# Time-stamp: <2025-03-17 18:23:16 krylon>
 #
 # /data/code/python/rpg/game.py
 # created on 12. 03. 2025
@@ -108,7 +108,17 @@ class Flag:
     def __repr__(self) -> str:
         return f"""Flag<{self.name} {"|" if self.__flag else "_"}>"""
 
+    def __str__(self) -> str:
+        return f"""Flag<{self.name} {"|" if self.__flag else "_"}>"""
+
     def __bool__(self) -> bool:
+        return self.__flag
+
+    def raised(self) -> bool:
+        """Return the state of the Flag.
+
+        This is really the same as bool(Flag), but ... you know...
+        """
         return self.__flag
 
     def mark_set(self) -> None:
@@ -147,6 +157,7 @@ class Entity(ABC):
     armor: int
     damage: Range
     initiative: Range
+    flags: dict[int, Flag] = field(default_factory=dict)
 
     def dmg(self) -> Range:
         """Return the effective damage the Entity can cause, taking into account any weapons."""
@@ -166,6 +177,14 @@ class Entity(ABC):
                     weapon = i
         return weapon
 
+    def raise_flag(self, key: int) -> None:
+        """Raise the flag identified by the given key."""
+        self.flags[key].mark_set()
+
+    def has_flag(self, key: int) -> bool:
+        """Return true if the Entity has the Flag identified by the key."""
+        return key in self.flags
+
 
 @dataclass(slots=True, kw_only=True)
 class Monster(Entity):
@@ -183,6 +202,7 @@ class Character(Entity):
     lvl: int
     attributes: dict[str, int]
     skills: dict[str, int]
+    attitude: Attitude = Attitude.Neutral
 
 
 @dataclass(slots=True, kw_only=True)
@@ -195,6 +215,7 @@ class Location:
     items: dict[str, Item]
     links: list[int]
     characters: dict[str, Entity]
+    flags: dict[int, Flag] = field(default_factory=dict)
 
 
 @dataclass(slots=True, kw_only=True)
