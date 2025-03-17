@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-16 17:07:06 krylon>
+# Time-stamp: <2025-03-17 18:39:22 krylon>
 #
 # /data/code/python/rpg/dialog.py
 # created on 15. 03. 2025
@@ -20,6 +20,7 @@ In this file, we attempt to model dialogue between the player and various beings
 """
 
 import re
+from collections.abc import Sequence
 from dataclasses import dataclass, field
 from re import Pattern
 from typing import Final, Union
@@ -139,18 +140,28 @@ class Choice:
     key: int
     leads_to: int
     text: Union[str, HTML]
+    taken: bool
+    ends_dialog: bool
     conditions: set[int] = field(default_factory=set)
     consequences: set[int] = field(default_factory=set)
 
-    def __init__(self, k: int, n: int, t: str, cond: set[int], cons: set[int]) -> None:
+    def __init__(self, k: int, n: int, t: str, cond: set[int], cons: set[int], **kwargs) -> None:  # pylint: disable-msg=R0917
         self.key = k
         self.leads_to = n
         self.text = t
         self.conditions = cond
         self.consequences = cons
+        self.taken = False
+        if "ends_dialog" in kwargs:
+            self.ends_dialog = bool(kwargs["ends_dialog"])
+        else:
+            self.ends_dialog = False
 
     def is_available(self, state: dict[int, Flag]) -> bool:
         """Return true, if the Choice is available under the given state of the World."""
+        if self.taken:
+            return False
+
         for c in self.conditions:
             if c not in state:
                 return False
@@ -181,7 +192,22 @@ class Panel:
             printf(f"{i+1:2d} {a.text}")
 
         idx = int(prompt(self.speech, validator=ChoiceValidator(len(available))))
-        return available[idx]
+        taken = available[idx]
+        taken.taken = True
+        return taken
+
+
+@dataclass(slots=True, kw_only=True)
+class DialogTree:
+    """DialogTree is a set of Panels, plus a starting Panel."""
+
+    panels: dict[int, Panel]
+    begin: int
+    preconditions: Sequence[int]
+    finished: bool = False
+
+    def __getitem__(self, key: int) -> Panel:
+        return self.panels[key]
 
 
 # Local Variables: #

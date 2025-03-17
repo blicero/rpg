@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 18:57:09 krylon>
+# Time-stamp: <2025-03-17 18:22:58 krylon>
 #
 # /data/code/python/rpg/engine.py
 # created on 13. 03. 2025
@@ -21,10 +21,12 @@ rpg.engine
 import logging
 import random
 from dataclasses import dataclass, field
-from typing import Final, Union
+from typing import Final, Optional, Union
 
 from rpg import common
-from rpg.data import BattleOutcome, Character, Entity, Location, Range, World
+from rpg.data import (BattleOutcome, Character, Entity, Flag, Location, Range,
+                      World)
+from rpg.dialog import Choice, DialogTree, Panel
 
 
 def roll(rng: Union[Range, int]) -> int:
@@ -41,7 +43,7 @@ INITIATIVE: Final[Range] = Range(1, 10)
 
 @dataclass(slots=True, kw_only=True)
 class Engine:
-    """Engine executes a game."""
+    """Engine executes a game (well, parts of the game)."""
 
     world: World
     cur_loc: int = 0
@@ -117,6 +119,49 @@ class Engine:
 
         return BattleOutcome.Neither
 
+    def state(self, char: Optional[Character] = None) -> dict[int, Flag]:
+        """Return the combined state for the World, the current Location, and the given Character."""
+        s = self.world.state | self.world.locations[self.cur_loc].flags
+
+        if char is not None:
+            s |= char.flags
+
+        return s
+
+    def run_dialog(self, char: Character, tree: DialogTree) -> None:
+        """Run a dialog with a character."""
+        flags: dict[int, Flag] = self.state(char)
+        panel: Panel = tree[tree.begin]
+
+        for c in tree.preconditions:
+            if not flags[c]:
+                self.log.debug("DialogTree cannot be run, condition %s is not met.",
+                               flags[c])
+
+        choice: Choice = panel.ask(flags)
+        # Update the the state of the Character
+        for c in choice.consequences:
+            # 17. 03. 2025, 17:56
+            # With Python using reference semantics nearly everywhere, raising
+            # the flag in the Character should be also visible in my bag
+            # flags, yes?
+            char.raise_flag(c)
+            assert flags[c]  # We can remove this after testing
+
+        while not choice.ends_dialog:
+            panel = tree[choice.leads_to]
+            choice = panel.ask(flags)
+            for c in choice.consequences:
+                # 17. 03. 2025, 17:56
+                # With Python using reference semantics nearly everywhere, raising
+                # the flag in the Character should be also visible in my bag
+                # flags, yes?
+                # Furthermore, a dialog option might affect not only the
+                # Character we are talking to, but also the Location (they open
+                # a window or something) or the World at large.
+                # For now, it's fine, but I'll need to revisit this issue.
+                char.raise_flag(c)
+                assert flags[c].raised()  # We can remove this after testing
 
 # Local Variables: #
 # python-indent: 4 #
