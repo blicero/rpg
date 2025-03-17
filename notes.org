@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2025-03-17 18:41:53 krylon>
+# Time-stamp: <2025-03-17 19:12:00 krylon>
 #
 #+TAGS: internals(i) ui(u) bug(b) feature(f)
 #+TAGS: design(e), meditation(m) plot(p)
@@ -8,7 +8,7 @@
 #+TODO: MEDITATE(m) PLANNING(p) | SUSPENDED(s)
 #+PRIORITIES: A G D
 
-* RPG [1/7]
+* RPG [1/8]
   :PROPERTIES:
   :COOKIE_DATA: todo recursive
   :VISIBILITY: children
@@ -16,16 +16,16 @@
   A disappointing attempt at a text-based role-playing game.
 ** Clocktable
    #+BEGIN: clocktable :scope file :maxlevel 255 :emphasize t
-   #+CAPTION: Clock summary at [2025-03-17 Mo 18:41]
+   #+CAPTION: Clock summary at [2025-03-17 Mo 19:11]
    | Headline                        | Time    |         |       |      |      |      |
    |---------------------------------+---------+---------+-------+------+------+------|
    | *Total time*                    | *16:29* |         |       |      |      |      |
    |---------------------------------+---------+---------+-------+------+------+------|
-   | *RPG [1/7]*                     | *16:29* |         |       |      |      |      |
-   | \_  /Components [1/7]/          |         | /16:29/ |       |      |      |      |
-   | \_    Engine [0/5]              |         |         | 11:12 |      |      |      |
-   | \_      Mechanics [0/4]         |         |         |       | 9:27 |      |      |
-   | \_        Talk to me! [0/2]     |         |         |       |      | 5:37 |      |
+   | *RPG [1/8]*                     | *16:29* |         |       |      |      |      |
+   | \_  /Components [1/8]/          |         | /16:29/ |       |      |      |      |
+   | \_    Engine [0/6]              |         |         | 11:12 |      |      |      |
+   | \_      Mechanics [0/5]         |         |         |       | 9:27 |      |      |
+   | \_        Talk to me! [0/3]     |         |         |       |      | 5:37 |      |
    | \_          A state machine?    |         |         |       |      |      | 4:45 |
    | \_    UI [1/2]                  |         |         |  5:17 |      |      |      |
    | \_      Prompt                  |         |         |       | 2:07 |      |      |
@@ -36,12 +36,12 @@
    :COOKIE_DATA: todo recursive
    :VISIBILITY: children
    :END:
-** Components [1/7]
+** Components [1/8]
    :PROPERTIES:
    :COOKIE_DATA: todo recursive
    :VISIBILITY: children
    :END:
-*** Engine [0/5]
+*** Engine [0/6]
     :PROPERTIES:
     :COOKIE_DATA: todo recursive
     :VISIBILITY: children
@@ -55,7 +55,7 @@
      game.
      As I am feeling lazy, I think I'll use something like JSON or pickle. If
      I find that to be inconvenient, I will reconsider.
-**** TODO Mechanics [0/4]
+**** TODO Mechanics [0/5]
      :PROPERTIES:
      :COOKIE_DATA: todo recursive
      :VISIBILITY: children
@@ -81,7 +81,7 @@
       - [ ] When slain, monster drop items!
       - [ ] More options, e.g. focus on defense vs attack?
       - [ ] I might make a separate sub Shell for this?
-***** TODO Talk to me! [0/2]
+***** TODO Talk to me! [0/3]
       :PROPERTIES:
       :COOKIE_DATA: todo recursive
       :VISIBILITY: children
@@ -95,6 +95,10 @@
       I found a library, [[file:///usr/share/doc/packages/python313-prompt_toolkit/README.rst][prompt_toolkit]], that seems like a great fit.
       [2025-03-15 Sa 20:03] Yeah, the mechanics are great, now I need to think
       about the data.
+****** TODO Format
+       I need to think about the format. I want a data format that I can
+       easily edit manually and process from the Python side. Python code is
+       not a very good way of storing a game.
 ****** TODO A state machine?
        :LOGBOOK:
        CLOCK: [2025-03-17 Mo 17:22]--[2025-03-17 Mo 18:05] =>  0:43
