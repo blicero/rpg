@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2025-03-16 17:01:01 krylon>
+# Time-stamp: <2025-03-17 18:41:53 krylon>
 #
 #+TAGS: internals(i) ui(u) bug(b) feature(f)
 #+TAGS: design(e), meditation(m) plot(p)
@@ -8,7 +8,7 @@
 #+TODO: MEDITATE(m) PLANNING(p) | SUSPENDED(s)
 #+PRIORITIES: A G D
 
-* RPG [1/6]
+* RPG [1/7]
   :PROPERTIES:
   :COOKIE_DATA: todo recursive
   :VISIBILITY: children
@@ -16,32 +16,32 @@
   A disappointing attempt at a text-based role-playing game.
 ** Clocktable
    #+BEGIN: clocktable :scope file :maxlevel 255 :emphasize t
-   #+CAPTION: Clock summary at [2025-03-16 So 17:00]
-   | Headline                        | Time    |         |      |      |      |      |
-   |---------------------------------+---------+---------+------+------+------+------|
-   | *Total time*                    | *15:10* |         |      |      |      |      |
-   |---------------------------------+---------+---------+------+------+------+------|
-   | *RPG [1/6]*                     | *15:10* |         |      |      |      |      |
-   | \_  /Components [1/6]/          |         | /15:10/ |      |      |      |      |
-   | \_    Engine [0/4]              |         |         | 9:53 |      |      |      |
-   | \_      Mechanics [0/3]         |         |         |      | 8:08 |      |      |
-   | \_        Talk to me! [0/1]     |         |         |      |      | 4:18 |      |
-   | \_          A state machine?    |         |         |      |      |      | 4:02 |
-   | \_    UI [1/2]                  |         |         | 5:17 |      |      |      |
-   | \_      Prompt                  |         |         |      | 2:07 |      |      |
-   | \_      Create character, world |         |         |      | 2:36 |      |      |
+   #+CAPTION: Clock summary at [2025-03-17 Mo 18:41]
+   | Headline                        | Time    |         |       |      |      |      |
+   |---------------------------------+---------+---------+-------+------+------+------|
+   | *Total time*                    | *16:29* |         |       |      |      |      |
+   |---------------------------------+---------+---------+-------+------+------+------|
+   | *RPG [1/7]*                     | *16:29* |         |       |      |      |      |
+   | \_  /Components [1/7]/          |         | /16:29/ |       |      |      |      |
+   | \_    Engine [0/5]              |         |         | 11:12 |      |      |      |
+   | \_      Mechanics [0/4]         |         |         |       | 9:27 |      |      |
+   | \_        Talk to me! [0/2]     |         |         |       |      | 5:37 |      |
+   | \_          A state machine?    |         |         |       |      |      | 4:45 |
+   | \_    UI [1/2]                  |         |         |  5:17 |      |      |      |
+   | \_      Prompt                  |         |         |       | 2:07 |      |      |
+   | \_      Create character, world |         |         |       | 2:36 |      |      |
    #+END:
 ** Features [0/0]
    :PROPERTIES:
    :COOKIE_DATA: todo recursive
    :VISIBILITY: children
    :END:
-** Components [1/6]
+** Components [1/7]
    :PROPERTIES:
    :COOKIE_DATA: todo recursive
    :VISIBILITY: children
    :END:
-*** Engine [0/4]
+*** Engine [0/5]
     :PROPERTIES:
     :COOKIE_DATA: todo recursive
     :VISIBILITY: children
@@ -55,7 +55,7 @@
      game.
      As I am feeling lazy, I think I'll use something like JSON or pickle. If
      I find that to be inconvenient, I will reconsider.
-**** TODO Mechanics [0/3]
+**** TODO Mechanics [0/4]
      :PROPERTIES:
      :COOKIE_DATA: todo recursive
      :VISIBILITY: children
@@ -81,12 +81,13 @@
       - [ ] When slain, monster drop items!
       - [ ] More options, e.g. focus on defense vs attack?
       - [ ] I might make a separate sub Shell for this?
-***** TODO Talk to me! [0/1]
+***** TODO Talk to me! [0/2]
       :PROPERTIES:
       :COOKIE_DATA: todo recursive
       :VISIBILITY: children
       :END:
       :LOGBOOK:
+      CLOCK: [2025-03-17 Mo 18:05]--[2025-03-17 Mo 18:41] =>  0:36
       CLOCK: [2025-03-15 Sa 21:26]--[2025-03-15 Sa 21:42] =>  0:16
       :END:
       Would be nice if one could talk to characters. I am thinking of a
@@ -96,6 +97,7 @@
       about the data.
 ****** TODO A state machine?
        :LOGBOOK:
+       CLOCK: [2025-03-17 Mo 17:22]--[2025-03-17 Mo 18:05] =>  0:43
        CLOCK: [2025-03-16 So 15:29]--[2025-03-16 So 17:00] =>  1:31
        CLOCK: [2025-03-16 So 11:50]--[2025-03-16 So 12:43] =>  0:53
        CLOCK: [2025-03-16 So 08:53]--[2025-03-16 So 09:25] =>  0:32
@@ -118,6 +120,14 @@
        and a bit of logic to update the world's state afterwards.
        I think the world might need a set of global flags to mark if something
        has happened, yet.
+****** TODO Consequences
+       When the player gives certain answers in a dialogue, that may have
+       consequences for the Character we're talking to or the Location we're
+       in, or the World.
+       The current state of modeling this insufficent still. A Flag should
+       identify if it applies to a Character, Location, or the World (or a
+       combination of these).
+       Also, the Character's Attitude might change. 
 *** UI [1/2]
     :PROPERTIES:
     :COOKIE_DATA: todo recursive
