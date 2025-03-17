@@ -87,6 +87,7 @@ class Attitude(Enum):
     actively interested in the player's success.
     """
 
+    Neutral = auto()
     Friendly = auto()
     Hostile = auto()
     Horny = auto()
