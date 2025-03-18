@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 15:39:38 krylon>
+# Time-stamp: <2025-03-17 20:30:59 krylon>
 #
 # /data/code/python/rpg/demo.py
 # created on 13. 03. 2025
@@ -37,7 +37,34 @@ def create_world() -> World:
                  description="""Sloth Castle is an ancient castle.
                  It once was the seat of kings, but now it is abandoned and empty.""",
                  items={},
-                 characters={},
+                 characters={
+                     "Merlin": Character(char_id=1000,
+                                         name="Merlin",
+                                         species="Human",
+                                         hp_max=2048,
+                                         hp=2048,
+                                         xp=1048576,
+                                         lvl=32,
+                                         inventory={},
+                                         attack=32,
+                                         evade=64,
+                                         armor=16,
+                                         damage=Range(1, 4),
+                                         initiative=Range(1, 16),
+                                         attributes={
+                                                     "strength": 2,
+                                                     "constitution": 4,
+                                                     "swiftness": 3,
+                                                     "intelligence": 9,
+                                                     "willpower": 8,
+                                                     "charisma": 6,
+                                                 },
+                                         skills={
+                                                     "magic": 10,
+                                                     "summoning": 8,
+                                                 },
+                                         ),
+                 },
                  links=[2],
                  ),
         Location(loc_id=2,
