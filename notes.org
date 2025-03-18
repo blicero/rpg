@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2025-03-17 19:12:00 krylon>
+# Time-stamp: <2025-03-18 19:09:09 krylon>
 #
 #+TAGS: internals(i) ui(u) bug(b) feature(f)
 #+TAGS: design(e), meditation(m) plot(p)
@@ -14,6 +14,9 @@
   :VISIBILITY: children
   :END:
   A disappointing attempt at a text-based role-playing game.
+  ...
+  [2025-03-17 Mo 21:57]
+  I am considering a fresh start, using Ruby. Maybe Lua.
 ** Clocktable
    #+BEGIN: clocktable :scope file :maxlevel 255 :emphasize t
    #+CAPTION: Clock summary at [2025-03-17 Mo 19:11]
@@ -99,6 +102,7 @@
        I need to think about the format. I want a data format that I can
        easily edit manually and process from the Python side. Python code is
        not a very good way of storing a game.
+       I miss the simple but powerful syntax Go has for data literals. Or Lua.
 ****** TODO A state machine?
        :LOGBOOK:
        CLOCK: [2025-03-17 Mo 17:22]--[2025-03-17 Mo 18:05] =>  0:43
