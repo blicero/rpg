@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-16 16:50:12 krylon>
+# Time-stamp: <2025-03-20 20:17:49 krylon>
 #
 # /data/code/python/rpg/shell.py
 # created on 13. 03. 2025
@@ -27,10 +27,12 @@ import traceback
 from re import Pattern
 from typing import Final
 
+from prompt_toolkit import prompt
+
 from rpg import common
 from rpg.data import BattleOutcome, Character, Monster, World
+from rpg.dialog import ask_multiple_choice, yes_or_no
 from rpg.engine import Engine
-from rpg.dialog import yes_or_no
 
 yes_no: Final[Pattern] = re.compile("(?:y(?:es)?|n(?:o)?)", re.I)
 
@@ -52,7 +54,7 @@ class Shell(cmd.Cmd):
         super().__init__()
         self.prompt = ">>>  "
         self.world = world
-        self.char = char
+        self.player = char
         self.engine = Engine(player=char, world=world)  # pylint: disable-msg=E1125
         try:
             readline.read_history_file(common.path.histfile())
@@ -106,6 +108,60 @@ You are at {here.name}""")
         return False
 
     def complete_attack(self, text, _line, _begidx, _endidx) -> list[str]:
+        """Complete me."""
+        here = self.engine.here()
+        completions: list[str] = list(here.characters.keys())
+        if text:
+            completions = [x for x in here.characters.keys()
+                           if x.lower().startswith(text.lower)
+                           ]
+        return completions
+
+    def do_fight(self, arg: str) -> bool:
+        """Fight a Monster."""
+        if arg not in self.world.locations[self.engine.cur_loc].characters:
+            print(f"There is no {arg} here to fight.")
+            return False
+
+        opp = self.engine.here().characters[arg]
+        if not isinstance(opp, Monster) or not opp.hostile:
+            # FIXED This should work nicely now.
+            # question = Question(f"{opp.name} is not your adversary. Do you really want to fight?",
+            #                     "Yes",
+            #                     "No")
+            # answer: str = question.ask()
+            # if answer.lower().startswith("n"):
+            #     return False
+            if not yes_or_no(f"{opp.name} is not your adversary. Do you really want to fight?"):
+                return False
+
+        while True:
+            res: BattleOutcome = self.engine.fight_round(opp)
+            match res:
+                case BattleOutcome.Victory:
+                    # Get Opponent's inventory!
+                    for item in opp.inventory.values():
+                        if item not in self.player.inventory:
+                            self.player.inventory[item.name] = item
+                        else:
+                            q: str = f"You already have a {item.name}, take it anyway?"
+                            answer: str = ask_multiple_choice(q, "Yes", "No", "Rename")
+                            match answer:
+                                case "Yes":
+                                    self.player.inventory[item.name] = item
+                                case "Rename":
+                                    item.name = prompt(f"Enter a new name for {item.name}: ")
+                                    self.player.inventory[item.name] = item
+                    return False
+                case BattleOutcome.Defeat:
+                    print("You are dead. Sorry, pal.")
+                    return True
+                case BattleOutcome.Neither:
+                    if self.player.hp < self.player.hp_max / 5:
+                        if not yes_or_no(f"Low HP ({self.player.hp}/{self.player.hp_max} - wanna go on?"):
+                            return False
+
+    def complete_fight(self, text, _line, _begidx, _endidx) -> list[str]:
         """Complete me."""
         here = self.engine.here()
         completions: list[str] = list(here.characters.keys())

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-17 18:22:58 krylon>
+# Time-stamp: <2025-03-20 15:28:01 krylon>
 #
 # /data/code/python/rpg/engine.py
 # created on 13. 03. 2025

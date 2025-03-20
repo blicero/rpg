@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-17 18:39:22 krylon>
+# Time-stamp: <2025-03-20 19:41:25 krylon>
 #
 # /data/code/python/rpg/dialog.py
 # created on 15. 03. 2025
@@ -131,6 +131,41 @@ def yes_or_no(question: str) -> bool:
     """Ask the player a simple yes-or-no-question"""
     res = prompt(question, validator=YesOrNoValidator())
     return res.lower()[0] == 'y'
+
+
+@dataclass(slots=True)
+class Question:
+    """A question we ask the user."""
+
+    question: Union[str, HTML]
+    choices: list[str]
+    validator: ChoiceValidator
+
+    def __init__(self, question: Union[str, HTML], *choices: str) -> None:
+        self.question = question
+        self.choices = list(choices)
+        self.validator = ChoiceValidator(len(choices))
+
+    def ask(self) -> Union[str, HTML]:
+        """As the user the question."""
+        for i, a in enumerate(self.choices):
+            printf(f"{i+1:2d} {a}")
+
+        idx: int = int(prompt(self.question, validator=self.validator))
+        return self.choices[idx-1]
+
+
+def ask_multiple_choice(question: str, *choices: str) -> str:
+    """Ask the user a multiple choice question."""
+    q: Question = Question(question, *choices)
+    reply = q.ask()
+    match reply:
+        case str(x):
+            return x
+        case _ if isinstance(reply, HTML):
+            return str(reply)
+        case _:
+            raise ValueError(f"(Invalid reply: {reply}")
 
 
 @dataclass(slots=True)
