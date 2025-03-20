@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2025-03-18 19:09:09 krylon>
+# Time-stamp: <2025-03-20 20:19:10 krylon>
 #
 #+TAGS: internals(i) ui(u) bug(b) feature(f)
 #+TAGS: design(e), meditation(m) plot(p)
@@ -19,20 +19,21 @@
   I am considering a fresh start, using Ruby. Maybe Lua.
 ** Clocktable
    #+BEGIN: clocktable :scope file :maxlevel 255 :emphasize t
-   #+CAPTION: Clock summary at [2025-03-17 Mo 19:11]
-   | Headline                        | Time    |         |       |      |      |      |
-   |---------------------------------+---------+---------+-------+------+------+------|
-   | *Total time*                    | *16:29* |         |       |      |      |      |
-   |---------------------------------+---------+---------+-------+------+------+------|
-   | *RPG [1/8]*                     | *16:29* |         |       |      |      |      |
-   | \_  /Components [1/8]/          |         | /16:29/ |       |      |      |      |
-   | \_    Engine [0/6]              |         |         | 11:12 |      |      |      |
-   | \_      Mechanics [0/5]         |         |         |       | 9:27 |      |      |
-   | \_        Talk to me! [0/3]     |         |         |       |      | 5:37 |      |
-   | \_          A state machine?    |         |         |       |      |      | 4:45 |
-   | \_    UI [1/2]                  |         |         |  5:17 |      |      |      |
-   | \_      Prompt                  |         |         |       | 2:07 |      |      |
-   | \_      Create character, world |         |         |       | 2:36 |      |      |
+   #+CAPTION: Clock summary at [2025-03-20 Do 20:19]
+   | Headline                         | Time    |         |       |       |      |      |
+   |----------------------------------+---------+---------+-------+-------+------+------|
+   | *Total time*                     | *23:39* |         |       |       |      |      |
+   |----------------------------------+---------+---------+-------+-------+------+------|
+   | *RPG [1/8]*                      | *23:39* |         |       |       |      |      |
+   | \_  /Components [1/8]/           |         | /23:39/ |       |       |      |      |
+   | \_    Engine [0/6]               |         |         | 18:22 |       |      |      |
+   | \_      Mechanics [0/5]          |         |         |       | 16:37 |      |      |
+   | \_        Fight the Power! [0/0] |         |         |       |       | 7:10 |      |
+   | \_        Talk to me! [0/3]      |         |         |       |       | 5:37 |      |
+   | \_          A state machine?     |         |         |       |       |      | 4:45 |
+   | \_    UI [1/2]                   |         |         |  5:17 |       |      |      |
+   | \_      Prompt                   |         |         |       |  2:07 |      |      |
+   | \_      Create character, world  |         |         |       |  2:36 |      |      |
    #+END:
 ** Features [0/0]
    :PROPERTIES:
@@ -77,6 +78,9 @@
       :PROPERTIES:
       :COOKIE_DATA: todo recursive
       :VISIBILITY: children
+      :END:
+      :LOGBOOK:
+      CLOCK: [2025-03-20 Do 13:08]--[2025-03-20 Do 20:18] =>  7:10
       :END:
       I want to make the fighting system less tedious.
       - [ ] Allow player to flee (or attempt to)
