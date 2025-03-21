@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-14 13:24:31 krylon>
+# Time-stamp: <2025-03-21 21:03:11 krylon>
 #
 # /data/code/python/krylisp/common.py
 # created on 17. 05. 2024
@@ -89,12 +89,15 @@ class Path:
         """Return the path of the history file for the REPL"""
         return os.path.join(self.__base, "input.history")
 
+    def worlds(self) -> str:
+        return os.path.join(self.__base, "worlds")
+
 
 path: Path = Path(os.path.expanduser(f"~/.{APP_NAME.lower()}.d"))
 
 _lock: Final[Lock] = Lock()  # pylint: disable-msg=C0103
 _cache: Final[dict[str, logging.Logger]] = {}  # pylint: disable-msg=C0103
-log_queue: queue.SimpleQueue = queue.SimpleQueue()
+# log_queue: queue.SimpleQueue = queue.SimpleQueue()
 
 
 def set_basedir(folder: str) -> None:
@@ -111,6 +114,9 @@ def init_app() -> None:
     if not os.path.isdir(path.save()):
         print(f"Create save directory {path.save()}")
         os.mkdir(path.save())
+    if not os.path.isdir(path.worlds()):
+        print(f"Create worlds directory {path.worlds()}")
+        os.mkdir(path.worlds())
 
 
 def get_logger(name: str, terminal: bool = True) -> logging.Logger:
