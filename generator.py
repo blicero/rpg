@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-21 22:52:37 krylon>
+# Time-stamp: <2025-03-21 23:02:42 krylon>
 #
 # /data/code/python/rpg/generator.py
 # created on 21. 03. 2025
@@ -18,11 +18,12 @@ rpg.generator
 """
 
 
+from collections.abc import Sequence
 from typing import Final
 
 from rpg.data import Entity, Item, Location, Monster
 
-site_types: Final[tuple[str]] = (
+site_types: Final[Sequence[str]] = (
     "village",
     "forest",
     "lake",
@@ -33,7 +34,7 @@ site_types: Final[tuple[str]] = (
     "cave",
 )
 
-location_types: Final[dict[str, tuple[str]]] = {
+location_types: Final[dict[str, Sequence[str]]] = {
     "village": (
     ),
     "forest": (
@@ -63,7 +64,7 @@ location_types: Final[dict[str, tuple[str]]] = {
 }
 
 
-class WorldGenerator:
+class WorldGenerator:  # pylint: disable-msg=R0903
     """WorldGenerator generates new Worlds pseudo-randomly."""
 
     __slots__ = [

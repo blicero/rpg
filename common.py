@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-21 21:03:11 krylon>
+# Time-stamp: <2025-03-21 22:55:04 krylon>
 #
 # /data/code/python/krylisp/common.py
 # created on 17. 05. 2024
@@ -36,9 +36,7 @@ rpg.common
 import logging
 import logging.handlers
 import os
-import queue
 import sys
-
 from threading import Lock
 from typing import Final
 
@@ -90,6 +88,7 @@ class Path:
         return os.path.join(self.__base, "input.history")
 
     def worlds(self) -> str:
+        """Return the path of the folder worlds are stored in."""
         return os.path.join(self.__base, "worlds")
 
 
