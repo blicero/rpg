@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2025-03-20 20:19:10 krylon>
+# Time-stamp: <2025-03-21 19:14:31 krylon>
 #
 #+TAGS: internals(i) ui(u) bug(b) feature(f)
 #+TAGS: design(e), meditation(m) plot(p)
@@ -59,7 +59,7 @@
      game.
      As I am feeling lazy, I think I'll use something like JSON or pickle. If
      I find that to be inconvenient, I will reconsider.
-**** TODO Mechanics [0/5]
+**** TODO Mechanics [0/6]
      :PROPERTIES:
      :COOKIE_DATA: todo recursive
      :VISIBILITY: children
@@ -74,6 +74,7 @@
      This is going to be tricky. At least for me, because I have never done
      anything like this before. So there will be a lot of trial and error
      initially.
+***** TODO Magic [0/0]
 ***** TODO Fight the Power! [0/0]                                     :feature:
       :PROPERTIES:
       :COOKIE_DATA: todo recursive
@@ -85,7 +86,7 @@
       I want to make the fighting system less tedious.
       - [ ] Allow player to flee (or attempt to)
       - [ ] Monster might flee?
-      - [ ] When slain, monster drop items!
+      - [X] When slain, monster drop items!
       - [ ] More options, e.g. focus on defense vs attack?
       - [ ] I might make a separate sub Shell for this?
 ***** TODO Talk to me! [0/3]
@@ -164,11 +165,16 @@
      In order to do some testing, I will need to create a player character and
      a world.
      Creating the world should be automatic, creating the player interactive.
-** World building [0/0]
+** World building [0/1]
    :PROPERTIES:
    :COOKIE_DATA: todo recursive
    :VISIBILITY: children
    :END:
+*** TODO World Generator [0/0]
+    :PROPERTIES:
+    :COOKIE_DATA: todo recursive
+    :VISIBILITY: children
+    :END:
 ** Plot [0/0]
    :PROPERTIES:
    :COOKIE_DATA: todo recursive
