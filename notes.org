@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2025-03-21 19:14:31 krylon>
+# Time-stamp: <2025-03-21 22:54:12 krylon>
 #
 #+TAGS: internals(i) ui(u) bug(b) feature(f)
 #+TAGS: design(e), meditation(m) plot(p)
@@ -19,21 +19,23 @@
   I am considering a fresh start, using Ruby. Maybe Lua.
 ** Clocktable
    #+BEGIN: clocktable :scope file :maxlevel 255 :emphasize t
-   #+CAPTION: Clock summary at [2025-03-20 Do 20:19]
-   | Headline                         | Time    |         |       |       |      |      |
-   |----------------------------------+---------+---------+-------+-------+------+------|
-   | *Total time*                     | *23:39* |         |       |       |      |      |
-   |----------------------------------+---------+---------+-------+-------+------+------|
-   | *RPG [1/8]*                      | *23:39* |         |       |       |      |      |
-   | \_  /Components [1/8]/           |         | /23:39/ |       |       |      |      |
-   | \_    Engine [0/6]               |         |         | 18:22 |       |      |      |
-   | \_      Mechanics [0/5]          |         |         |       | 16:37 |      |      |
-   | \_        Fight the Power! [0/0] |         |         |       |       | 7:10 |      |
-   | \_        Talk to me! [0/3]      |         |         |       |       | 5:37 |      |
-   | \_          A state machine?     |         |         |       |       |      | 4:45 |
-   | \_    UI [1/2]                   |         |         |  5:17 |       |      |      |
-   | \_      Prompt                   |         |         |       |  2:07 |      |      |
-   | \_      Create character, world  |         |         |       |  2:36 |      |      |
+   #+CAPTION: Clock summary at [2025-03-21 Fr 22:54]
+   | Headline                         | Time      |         |       |       |      |      |
+   |----------------------------------+-----------+---------+-------+-------+------+------|
+   | *Total time*                     | *1d 0:47* |         |       |       |      |      |
+   |----------------------------------+-----------+---------+-------+-------+------+------|
+   | *RPG [1/8]*                      | *1d 0:47* |         |       |       |      |      |
+   | \_  /Components [1/8]/           |           | /23:39/ |       |       |      |      |
+   | \_    Engine [0/6]               |           |         | 18:22 |       |      |      |
+   | \_      Mechanics [0/6]          |           |         |       | 16:37 |      |      |
+   | \_        Fight the Power! [0/0] |           |         |       |       | 7:10 |      |
+   | \_        Talk to me! [0/3]      |           |         |       |       | 5:37 |      |
+   | \_          A state machine?     |           |         |       |       |      | 4:45 |
+   | \_    UI [2/2]                   |           |         |  5:17 |       |      |      |
+   | \_      Prompt                   |           |         |       |  2:07 |      |      |
+   | \_      Create character, world  |           |         |       |  2:36 |      |      |
+   | \_  /World building [0/1]/       |           | /1:08/  |       |       |      |      |
+   | \_    World Generator [0/0]      |           |         |  1:08 |       |      |      |
    #+END:
 ** Features [0/0]
    :PROPERTIES:
@@ -141,7 +143,7 @@
        identify if it applies to a Character, Location, or the World (or a
        combination of these).
        Also, the Character's Attitude might change. 
-*** UI [1/2]
+*** UI [2/2]
     :PROPERTIES:
     :COOKIE_DATA: todo recursive
     :VISIBILITY: children
@@ -157,7 +159,8 @@
      CLOCK: [2025-03-15 Sa 10:31]--[2025-03-15 Sa 10:32] =>  0:01
      :END:
      I discovered prompt_toolkit, which so far is great.
-**** TODO Create character, world
+**** DONE Create character, world
+     CLOSED: [2025-03-21 Fr 22:53]
      :LOGBOOK:
      CLOCK: [2025-03-13 Do 21:51]--[2025-03-14 Fr 00:25] =>  2:34
      CLOCK: [2025-03-13 Do 21:28]--[2025-03-13 Do 21:30] =>  0:02
@@ -174,6 +177,9 @@
     :PROPERTIES:
     :COOKIE_DATA: todo recursive
     :VISIBILITY: children
+    :END:
+    :LOGBOOK:
+    CLOCK: [2025-03-21 Fr 21:45]--[2025-03-21 Fr 22:53] =>  1:08
     :END:
 ** Plot [0/0]
    :PROPERTIES:
