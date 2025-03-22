@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-21 23:02:42 krylon>
+# Time-stamp: <2025-03-22 17:03:40 krylon>
 #
 # /data/code/python/rpg/generator.py
 # created on 21. 03. 2025
@@ -21,7 +21,7 @@ rpg.generator
 from collections.abc import Sequence
 from typing import Final
 
-from rpg.data import Entity, Item, Location, Monster
+from rpg.data import Entity, Item, Location, Monster, Range
 
 site_types: Final[Sequence[str]] = (
     "village",
@@ -36,6 +36,10 @@ site_types: Final[Sequence[str]] = (
 
 location_types: Final[dict[str, Sequence[str]]] = {
     "village": (
+        "harbor",
+        "tavern",
+        "market",
+        "alley",
     ),
     "forest": (
         "clearing",
@@ -58,9 +62,32 @@ location_types: Final[dict[str, Sequence[str]]] = {
         "hall",
     ),
     "dungeon": (
+        "corridor",
+        "cell",
+        "entrance",
+        "torture chamber",
     ),
     "mountains": (
+        "mountain pass",
     ),
+}
+
+
+monster_stats = {
+    "Orc": {
+        "xp": 100,
+        "hp": Range(50, 100),
+        "attack": Range(5, 12),
+        "evade": Range(1, 8),
+        "initiative": Range(1, 10),
+    },
+    "Skeleton": {
+        "xp": 50,
+        "hp": Range(20, 80),
+        "attack": Range(2, 8),
+        "evade": Range(1, 6),
+        "initiative": Range(2, 6),
+    },
 }
 
 
