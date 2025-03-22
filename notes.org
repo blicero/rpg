@@ -1,5 +1,5 @@
 # -*- mode: org; fill-column: 78; -*-
-# Time-stamp: <2025-03-21 22:54:12 krylon>
+# Time-stamp: <2025-03-22 19:15:11 krylon>
 #
 #+TAGS: internals(i) ui(u) bug(b) feature(f)
 #+TAGS: design(e), meditation(m) plot(p)
@@ -19,12 +19,12 @@
   I am considering a fresh start, using Ruby. Maybe Lua.
 ** Clocktable
    #+BEGIN: clocktable :scope file :maxlevel 255 :emphasize t
-   #+CAPTION: Clock summary at [2025-03-21 Fr 22:54]
+   #+CAPTION: Clock summary at [2025-03-22 Sa 19:15]
    | Headline                         | Time      |         |       |       |      |      |
    |----------------------------------+-----------+---------+-------+-------+------+------|
-   | *Total time*                     | *1d 0:47* |         |       |       |      |      |
+   | *Total time*                     | *1d 2:01* |         |       |       |      |      |
    |----------------------------------+-----------+---------+-------+-------+------+------|
-   | *RPG [1/8]*                      | *1d 0:47* |         |       |       |      |      |
+   | *RPG [1/8]*                      | *1d 2:01* |         |       |       |      |      |
    | \_  /Components [1/8]/           |           | /23:39/ |       |       |      |      |
    | \_    Engine [0/6]               |           |         | 18:22 |       |      |      |
    | \_      Mechanics [0/6]          |           |         |       | 16:37 |      |      |
@@ -34,8 +34,8 @@
    | \_    UI [2/2]                   |           |         |  5:17 |       |      |      |
    | \_      Prompt                   |           |         |       |  2:07 |      |      |
    | \_      Create character, world  |           |         |       |  2:36 |      |      |
-   | \_  /World building [0/1]/       |           | /1:08/  |       |       |      |      |
-   | \_    World Generator [0/0]      |           |         |  1:08 |       |      |      |
+   | \_  /World building [0/1]/       |           | /2:22/  |       |       |      |      |
+   | \_    World Generator [0/0]      |           |         |  2:22 |       |      |      |
    #+END:
 ** Features [0/0]
    :PROPERTIES:
@@ -179,6 +179,7 @@
     :VISIBILITY: children
     :END:
     :LOGBOOK:
+    CLOCK: [2025-03-22 Sa 16:15]--[2025-03-22 Sa 17:29] =>  1:14
     CLOCK: [2025-03-21 Fr 21:45]--[2025-03-21 Fr 22:53] =>  1:08
     :END:
 ** Plot [0/0]
