@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-23 15:57:02 krylon>
+# Time-stamp: <2025-03-23 18:53:41 krylon>
 #
 # /data/code/python/rpg/generator.py
 # created on 21. 03. 2025
@@ -18,6 +18,7 @@ rpg.generator
 """
 
 
+import logging
 import random
 from collections.abc import Sequence
 from dataclasses import dataclass
@@ -25,6 +26,7 @@ from typing import Final
 
 from krylib import Counter
 
+from rpg import common
 from rpg.data import Entity, Item, Location, Monster, Range
 
 site_types: Final[Sequence[str]] = (
@@ -117,6 +119,7 @@ class WorldGenerator:  # pylint: disable-msg=R0903
         "monsters",
         "items",
         "characters",
+        "log",
     ]
 
     idcnt: Counter
@@ -124,8 +127,10 @@ class WorldGenerator:  # pylint: disable-msg=R0903
     monsters: dict[int, Monster]
     items: dict[int, Item]
     characters: dict[int, Entity]
+    log: logging.Logger
 
     def __init__(self) -> None:
+        self.log = common.get_logger("WorldGenerator")
         self.idcnt = Counter()
         self.locations = {}
         self.monsters = {}
@@ -137,9 +142,13 @@ class WorldGenerator:  # pylint: disable-msg=R0903
         site_type: Final[str] = random.choice(site_types)
         loc_cnt: int = loc_per_site.random()
 
-        locations: list[Location] = []
+        self.log.debug("Generate Site %s with %d locations",
+                       site_type,
+                       loc_cnt)
 
-        for _ in loc_cnt:
+        # locations: list[Location] = []
+
+        for _ in range(loc_cnt):
             pass
 
 # Local Variables: #
