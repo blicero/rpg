@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Time-stamp: <2025-03-22 17:03:40 krylon>
+# Time-stamp: <2025-03-23 15:57:02 krylon>
 #
 # /data/code/python/rpg/generator.py
 # created on 21. 03. 2025
@@ -18,8 +18,12 @@ rpg.generator
 """
 
 
+import random
 from collections.abc import Sequence
+from dataclasses import dataclass
 from typing import Final
+
+from krylib import Counter
 
 from rpg.data import Entity, Item, Location, Monster, Range
 
@@ -33,6 +37,8 @@ site_types: Final[Sequence[str]] = (
     "mountains",
     "cave",
 )
+
+loc_per_site: Final[Range] = Range(4, 32)
 
 location_types: Final[dict[str, Sequence[str]]] = {
     "village": (
@@ -73,21 +79,32 @@ location_types: Final[dict[str, Sequence[str]]] = {
 }
 
 
-monster_stats = {
-    "Orc": {
-        "xp": 100,
-        "hp": Range(50, 100),
-        "attack": Range(5, 12),
-        "evade": Range(1, 8),
-        "initiative": Range(1, 10),
-    },
-    "Skeleton": {
-        "xp": 50,
-        "hp": Range(20, 80),
-        "attack": Range(2, 8),
-        "evade": Range(1, 6),
-        "initiative": Range(2, 6),
-    },
+@dataclass(slots=True, kw_only=True)
+class MonsterStats:
+    """MonsterStats defines the parameters for generating a Monster."""
+
+    xp: int
+    hp: Range
+    attack: Range
+    evade: Range
+    initiative: Range
+
+
+monster_stats: dict[str, MonsterStats] = {
+    "Orc": MonsterStats(
+        xp=100,
+        hp=Range(50, 100),
+        attack=Range(5, 12),
+        evade=Range(1, 8),
+        initiative=Range(1, 10),
+    ),
+    "Skeleton": MonsterStats(
+        xp=50,
+        hp=Range(20, 80),
+        attack=Range(2, 8),
+        evade=Range(1, 6),
+        initiative=Range(2, 6),
+    ),
 }
 
 
@@ -95,23 +112,35 @@ class WorldGenerator:  # pylint: disable-msg=R0903
     """WorldGenerator generates new Worlds pseudo-randomly."""
 
     __slots__ = [
+        "idcnt",
         "locations",
         "monsters",
         "items",
         "characters",
     ]
 
+    idcnt: Counter
     locations: dict[int, Location]
     monsters: dict[int, Monster]
     items: dict[int, Item]
     characters: dict[int, Entity]
 
     def __init__(self) -> None:
+        self.idcnt = Counter()
         self.locations = {}
         self.monsters = {}
         self.items = {}
         self.characters = {}
 
+    def make_site(self) -> None:
+        """Create a site"""
+        site_type: Final[str] = random.choice(site_types)
+        loc_cnt: int = loc_per_site.random()
+
+        locations: list[Location] = []
+
+        for _ in loc_cnt:
+            pass
 
 # Local Variables: #
 # python-indent: 4 #
